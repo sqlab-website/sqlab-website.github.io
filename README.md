@@ -36,7 +36,7 @@ slug,name_ja,name_en,initial,role_ja,role_en,theme_ja,theme_en,bio_ja,bio_en,web
 ローカル実行例:
 
 ```bash
-MEMBERS_SHEET_ID=1DlJNWJSXtzL4D2cWJcegh9KBKeyoqwT1JIO7HDKzP20 ruby scripts/sync_members_from_sheet.rb
+MEMBERS_SHEET_ID=メンバー用GoogleスプレッドシートID ruby scripts/sync_members_from_sheet.rb
 ```
 
 GitHub Actionsで自動同期する場合は、リポジトリのSecretsに`MEMBERS_SHEET_CSV_URL`または`MEMBERS_SHEET_ID`を設定します。シートは「リンクを知っている全員が閲覧可」にしておきます。
@@ -56,12 +56,12 @@ id,area_ja,area_en,title_ja,title_en,summary_ja,summary_en,description_ja,descri
 ローカル実行例:
 
 ```bash
-RESEARCH_SHEET_ID=1rxuNIuX-vAccC2Sa2JGes1TQwL8Gkcxzga6rkMxSKbo RESEARCH_SHEET_GID=0 ruby scripts/sync_research_from_sheet.rb
+RESEARCH_SHEET_ID=研究内容用GoogleスプレッドシートID RESEARCH_SHEET_GID=0 ruby scripts/sync_research_from_sheet.rb
 ```
 
 `RESEARCH_SHEET_ID`には、`https://docs.google.com/spreadsheets/d/...` のURL全体を入れても動きます。
 
-GitHub Actionsで自動同期する場合は、リポジトリのSecretsに`RESEARCH_SHEET_CSV_URL`または`RESEARCH_SHEET_ID`を設定します。今回の研究内容用シートは`RESEARCH_SHEET_ID=1rxuNIuX-vAccC2Sa2JGes1TQwL8Gkcxzga6rkMxSKbo`です。メンバーとは別タブで管理する場合は`RESEARCH_SHEET_GID`にそのタブのgidを設定します。シートは「リンクを知っている全員が閲覧可」にしておきます。
+GitHub Actionsで自動同期する場合は、リポジトリのSecretsに`RESEARCH_SHEET_CSV_URL`または`RESEARCH_SHEET_ID`を設定します。メンバーとは別タブで管理する場合は`RESEARCH_SHEET_GID`にそのタブのgidを設定します。シートは「リンクを知っている全員が閲覧可」にしておきます。
 
 ## Google Sheetsからイベントを同期
 
