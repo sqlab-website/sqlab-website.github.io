@@ -1,3 +1,4 @@
+---
 - name: 結縁祥治
   slug: shoji-yuen
   initial: SY
@@ -5,4 +6,27 @@
   theme: 可逆並行プログラミング，実時間ソフトウェア
   bio: 可逆計算、並行プログラミング、実時間ソフトウェアの形式的手法に関心があります。プログラムの正しさや信頼性を数理的に保証するための理論と開発支援手法を研究しています。
   email: yuen [at] sqlab.jp
+  photo_url: https://drive.google.com/file/d/1OPXuLEXfUFWuRJH2NYyY9EzXYIctFUf2/view?usp=sharing
   order: 1
+- name: 中澤巧爾
+  slug: koji-nakazawa
+  initial: KN
+  role: 准教授
+  theme: プログラム解析・プログラム検証
+  bio: プログラム検証
+  email: knak [at] sqlab.jp
+  website: https://knaknak.github.io
+  order: 2
+- name: 井上裕介
+  slug: yusuke-inoue
+  initial: YI
+  role: 助教
+  theme: 代数的形式言語
+  email: y-inoue [at] sqlab.jp
+  order: 3
+- name: 村瀬麻木子
+  slug: makiko-murase
+  initial: MM
+  role: 事務補助員
+  email: mmurase [at] sqlab.jp
+  order: 4
