@@ -14,8 +14,6 @@ permalink: "/members/shoji-yuen/"
   <img class="profile-photo" src="/assets/images/members/shoji-yuen-6fcefb84.png" alt="結縁祥治">
   <div class="member-profile__body">
     <div class="profile-block profile-markdown" markdown="1">
-# 結縁祥治
-
 ## 研究テーマ
 
 形式手法，並行計算，実時間システム，プログラム検証に関する研究を行っています。

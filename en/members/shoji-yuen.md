@@ -16,8 +16,6 @@ site_title: Yuen/Nakazawa Laboratory
   <img class="profile-photo" src="/assets/images/members/shoji-yuen-6fcefb84.png" alt="Shoji Yuen">
   <div class="member-profile__body">
     <div class="profile-block profile-markdown" markdown="1">
-# Shoji Yuen
-
 ## Research Topics
 
 Reversible Proguramming,
