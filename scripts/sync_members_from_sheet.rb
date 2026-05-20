@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 require "csv"
+require "digest"
 require "fileutils"
 require "open-uri"
 require "yaml"
@@ -54,12 +55,68 @@ def google_drive_download_url(url)
   end
 end
 
+def google_drive_view_url(url)
+  return nil unless present?(url)
+
+  if url =~ %r{drive\.google\.com/file/d/([^/]+)}
+    "https://drive.google.com/file/d/#{Regexp.last_match(1)}/view?usp=sharing"
+  elsif url =~ /[?&]id=([^&]+)/
+    "https://drive.google.com/file/d/#{Regexp.last_match(1)}/view?usp=sharing"
+  elsif url =~ %r{docs\.google\.com/document/d/([^/]+)}
+    "https://docs.google.com/document/d/#{Regexp.last_match(1)}/edit?usp=sharing"
+  else
+    url
+  end
+end
+
+def google_drive_image_url(url)
+  return nil unless present?(url)
+
+  if url =~ %r{drive\.google\.com/file/d/([^/]+)}
+    "https://drive.google.com/thumbnail?id=#{Regexp.last_match(1)}&sz=w640"
+  elsif url =~ /[?&]id=([^&]+)/
+    "https://drive.google.com/thumbnail?id=#{Regexp.last_match(1)}&sz=w640"
+  else
+    url
+  end
+end
+
 def fetch_markdown(url)
   return nil unless present?(url)
 
-  URI.open(google_drive_download_url(url), &:read)
+  URI.open(google_drive_download_url(url), &:read).force_encoding("UTF-8").encode("UTF-8", invalid: :replace, undef: :replace)
 rescue OpenURI::HTTPError, SocketError, URI::InvalidURIError => error
   warn("Could not fetch profile markdown from #{url}: #{error.message}")
+  nil
+end
+
+def image_extension(content_type)
+  {
+    "image/jpeg" => ".jpg",
+    "image/png" => ".png",
+    "image/gif" => ".gif",
+    "image/webp" => ".webp"
+  }[content_type]
+end
+
+def fetch_photo(url, slug)
+  return nil unless present?(url)
+
+  URI.open(google_drive_download_url(url), "rb") do |file|
+    extension = image_extension(file.content_type)
+    unless extension
+      warn("Could not fetch member photo from #{url}: unsupported content type #{file.content_type}")
+      return nil
+    end
+
+    FileUtils.mkdir_p("assets/images/members")
+    filename = "#{slug}-#{Digest::SHA1.hexdigest(url)[0, 8]}#{extension}"
+    path = File.join("assets/images/members", filename)
+    File.binwrite(path, file.read)
+    "/#{path}"
+  end
+rescue OpenURI::HTTPError, SocketError, URI::InvalidURIError => error
+  warn("Could not fetch member photo from #{url}: #{error.message}")
   nil
 end
 
@@ -124,6 +181,7 @@ def write_profile(path, member, lang:)
   profile_label = is_en ? "Profile" : "profile"
   personal_site_text = is_en ? "Open personal page" : "個人ページを開く"
   profile_text = is_en ? "Open profile" : "profileを開く"
+  profile_markdown = strip_front_matter(fetch_markdown(member["profile_md_url"]))
 
   contact_lines = []
   if member["email"]
@@ -132,14 +190,21 @@ def write_profile(path, member, lang:)
     contact_lines << "<p><strong>#{email_label}</strong><br>#{email_html}</p>"
   end
   media_html = if member["photo_url"]
-                 "<img class=\"profile-photo\" src=\"#{member["photo_url"]}\" alt=\"#{title}\">"
+                 photo_src = fetch_photo(member["photo_url"], member.fetch("slug")) || google_drive_image_url(member["photo_url"])
+                 "<img class=\"profile-photo\" src=\"#{photo_src}\" alt=\"#{title}\">"
                else
                  "<div class=\"avatar avatar--large\" aria-hidden=\"true\">#{initial}</div>"
                end
   external_links = []
   external_links << [personal_site_label, personal_site_text, member["website"]] if member["website"]
-  external_links << [profile_label, profile_text, member["profile_md_url"]] if member["profile_md_url"]
-  profile_content = if external_links.any?
+  external_links << [profile_label, profile_text, google_drive_view_url(member["profile_md_url"])] if member["profile_md_url"] && !present?(profile_markdown)
+  profile_content = if present?(profile_markdown)
+                      <<~HTML
+                        <div class="profile-block profile-markdown" markdown="1">
+                        #{profile_markdown}
+                        </div>
+                      HTML
+                    elsif external_links.any?
                       link_items = external_links.map do |label, text, href|
                         <<~HTML
                           <p><strong>#{label}</strong><br><a class="button" href="#{href}">#{text}</a></p>

@@ -11,12 +11,22 @@ permalink: "/members/shoji-yuen/"
 </section>
 
 <section class="section member-profile">
-  <img class="profile-photo" src="https://drive.google.com/file/d/1OPXuLEXfUFWuRJH2NYyY9EzXYIctFUf2/view?usp=sharing" alt="結縁祥治">
+  <img class="profile-photo" src="/assets/images/members/shoji-yuen-6fcefb84.png" alt="結縁祥治">
   <div class="member-profile__body">
-    <div class="profile-block">
-  <p class="eyebrow">Research Theme</p>
-  <h2>可逆並行プログラミング，実時間ソフトウェア</h2>
-  <p>可逆計算、並行プログラミング、実時間ソフトウェアの形式的手法に関心があります。プログラムの正しさや信頼性を数理的に保証するための理論と開発支援手法を研究しています。</p>
+    <div class="profile-block profile-markdown" markdown="1">
+# 結縁祥治
+
+## 研究テーマ
+
+形式手法，並行計算，実時間システム，プログラム検証に関する研究を行っています。
+
+## 主な研究分野
+
+- 可逆並行プログラミング
+- プロセス代数
+- 時間オートマトン
+- モデル検査
+- プログラム検証
 </div>
     <div class="profile-block profile-block--compact">
           <p class="eyebrow">Contact</p>

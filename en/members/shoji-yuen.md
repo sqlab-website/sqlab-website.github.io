@@ -13,12 +13,16 @@ site_title: Yuen/Nakazawa Laboratory
 </section>
 
 <section class="section member-profile">
-  <img class="profile-photo" src="https://drive.google.com/file/d/1OPXuLEXfUFWuRJH2NYyY9EzXYIctFUf2/view?usp=sharing" alt="Shoji Yuen">
+  <img class="profile-photo" src="/assets/images/members/shoji-yuen-6fcefb84.png" alt="Shoji Yuen">
   <div class="member-profile__body">
-    <div class="profile-block">
-  <p class="eyebrow">Research Theme</p>
-  <h2>Reversible Concurrent Programming, Real-time Software</h2>
-  <p>I am interested in reversible computing, concurrent programming, and formal methods for real-time software. My research focuses on theories and development support techniques for mathematically ensuring the correctness and reliability of programs.</p>
+    <div class="profile-block profile-markdown" markdown="1">
+# Shoji Yuen
+
+## Research Topics
+
+Reversible Proguramming,
+Concurrency,
+Real-time software verification
 </div>
     <div class="profile-block profile-block--compact">
           <p class="eyebrow">Contact</p>
