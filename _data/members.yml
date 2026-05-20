@@ -30,3 +30,10 @@
   role: 事務補助員
   email: mmurase [at] sqlab.jp
   order: 4
+- name: 小口隼矢
+  slug: shunya-oguchi
+  initial: SO
+  role: D2
+  theme: 可逆並行プログラミング
+  email: oguchi321 [at] sqlab.jp
+  order: 11
