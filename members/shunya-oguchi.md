@@ -1,12 +1,12 @@
 ---
-title: 小口隼矢
+title: 小口 隼矢
 permalink: "/members/shunya-oguchi/"
 
 ---
 
 <section class="page-header">
   <p class="eyebrow">Member</p>
-  <h1>小口隼矢</h1>
+  <h1>小口 隼矢</h1>
   <p>D2</p>
 </section>
 

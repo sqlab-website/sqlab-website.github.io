@@ -1,12 +1,12 @@
 ---
-title: 井上裕介
+title: 井上 裕介
 permalink: "/members/yusuke-inoue/"
 
 ---
 
 <section class="page-header">
   <p class="eyebrow">Member</p>
-  <h1>井上裕介</h1>
+  <h1>井上 裕介</h1>
   <p>助教</p>
 </section>
 

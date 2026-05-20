@@ -1,12 +1,12 @@
 ---
-title: 中澤巧爾
+title: 中澤 巧爾
 permalink: "/members/koji-nakazawa/"
 
 ---
 
 <section class="page-header">
   <p class="eyebrow">Member</p>
-  <h1>中澤巧爾</h1>
+  <h1>中澤 巧爾</h1>
   <p>准教授</p>
 </section>
 

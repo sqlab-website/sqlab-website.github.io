@@ -41,3 +41,81 @@
   theme: Reversible Concurrent Programming
   email: oguchi321 [at] sqlab.jp
   order: 11
+- name: Takumi Sato
+  slug: takumi-sato
+  initial: TS
+  role: D1
+  email: sato.takumi [at] sqlab.jp
+  order: 12
+- name: Masahiro Kuroda
+  slug: masahiro-kuroda
+  initial: MK
+  role: M2
+  email: kr.masahiro [at] sqlab.jp
+  order: 21
+- name: Renya Kawano
+  slug: renya-kawano
+  initial: RK
+  role: M2
+  email: kwnrny [at] sqlab.jp
+  order: 22
+- name: Chen Zhao
+  slug: chen-zhao
+  initial: CZ
+  role: M2
+  email: chenzhao [at] sqlab.jp
+  order: 23
+- name: Zhang Haotian
+  slug: zhang-haotian
+  initial: ZH
+  role: M2
+  email: HTzhang [at] sqlab.jp
+  order: 24
+- name: Yuna Sadamoto
+  slug: yuna-sadamoto
+  initial: YS
+  role: M1
+  email: yunas30211 [at] sqlab.jp
+  order: 31
+- name: Yuichi Hasegawa
+  slug: yuichi-hasegawa
+  initial: YH
+  role: M1
+  email: yuichihase [at] sqlab.jp
+  order: 32
+- name: Go Fuma
+  slug: go-fuma
+  initial: GF
+  role: M1
+  email: go.fuma [at] sqlab.jp
+  order: 33
+- name: Matsui Rintaro
+  slug: matsui-rintaro
+  initial: MR
+  role: M1
+  email: matsurin [at] sqlab.jp
+  order: 34
+- name: Tanaka Yoshinao
+  slug: tanaka-yoshinao
+  initial: TY
+  role: M1
+  email: y_tanaka [at] sqlab.jp
+  order: 35
+- name: Kano Narihiro
+  slug: kano-narihiro
+  initial: KN
+  role: B4
+  email: narihirokanoh [at] sqlab.jp
+  order: 41
+- name: Takuho Yamada
+  slug: takuho-yamada
+  initial: TY
+  role: B4
+  email: y-takuho [at] sqlab.jp
+  order: 42
+- name: Kairi Kito
+  slug: kairi-kito
+  initial: KK
+  role: B4
+  email: kitokairi [at] sqlab.jp
+  order: 43

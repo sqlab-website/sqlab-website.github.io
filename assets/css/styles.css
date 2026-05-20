@@ -516,9 +516,9 @@ h3 {
 
 .avatar {
   align-items: center;
-  background: #e7f1ee;
+  background: #9fb7b7;
   border-radius: 50%;
-  color: var(--brand-dark);
+  color: #102c34;
   display: flex;
   font-size: 1.8rem;
   font-weight: 900;

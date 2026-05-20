@@ -1,17 +1,17 @@
 ---
-title: 村瀬 麻木子
-permalink: "/members/makiko-murase/"
+title: 佐藤 拓海
+permalink: "/members/takumi-sato/"
 
 ---
 
 <section class="page-header">
   <p class="eyebrow">Member</p>
-  <h1>村瀬 麻木子</h1>
-  <p>事務補助員</p>
+  <h1>佐藤 拓海</h1>
+  <p>D1</p>
 </section>
 
 <section class="section member-profile">
-  <div class="avatar avatar--large" aria-hidden="true">MM</div>
+  <div class="avatar avatar--large" aria-hidden="true">TS</div>
   <div class="member-profile__body">
     <div class="profile-block">
   <p class="eyebrow">Research Theme</p>
@@ -20,7 +20,7 @@ permalink: "/members/makiko-murase/"
 </div>
     <div class="profile-block profile-block--compact">
           <p class="eyebrow">Contact</p>
-          <p><strong>メール</strong><br>mmurase [at] sqlab.jp</p>
+          <p><strong>メール</strong><br>sato.takumi [at] sqlab.jp</p>
         </div>
     <a class="back-link" href="/members/">メンバー一覧へ</a>
   </div>

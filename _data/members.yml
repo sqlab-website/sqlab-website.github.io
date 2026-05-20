@@ -1,5 +1,5 @@
 ---
-- name: 結縁祥治
+- name: 結縁 祥治
   slug: shoji-yuen
   initial: SY
   role: 教授
@@ -9,7 +9,7 @@
   photo_url: https://drive.google.com/file/d/1Qx8tD4sRk42sFd21slc-vDexjtLKsTKl/view?usp=sharing
   profile_md_url: https://drive.google.com/uc?export=download&id=19xkcmwZ_QEgGQxvMAasZsVokBuu_AmLB
   order: 1
-- name: 中澤巧爾
+- name: 中澤 巧爾
   slug: koji-nakazawa
   initial: KN
   role: 准教授
@@ -18,23 +18,101 @@
   email: knak [at] sqlab.jp
   website: https://knaknak.github.io
   order: 2
-- name: 井上裕介
+- name: 井上 裕介
   slug: yusuke-inoue
   initial: YI
   role: 助教
   theme: 代数的形式言語
   email: y-inoue [at] sqlab.jp
   order: 3
-- name: 村瀬麻木子
+- name: 村瀬 麻木子
   slug: makiko-murase
   initial: MM
   role: 事務補助員
   email: mmurase [at] sqlab.jp
   order: 4
-- name: 小口隼矢
+- name: 小口 隼矢
   slug: shunya-oguchi
   initial: SO
   role: D2
   theme: 可逆並行プログラミング
   email: oguchi321 [at] sqlab.jp
   order: 11
+- name: 佐藤 拓海
+  slug: takumi-sato
+  initial: TS
+  role: D1
+  email: sato.takumi [at] sqlab.jp
+  order: 12
+- name: 黒田 将弘
+  slug: masahiro-kuroda
+  initial: MK
+  role: M2
+  email: kr.masahiro [at] sqlab.jp
+  order: 21
+- name: 川野 蓮弥
+  slug: renya-kawano
+  initial: RK
+  role: M2
+  email: kwnrny [at] sqlab.jp
+  order: 22
+- name: 趙 晨
+  slug: chen-zhao
+  initial: CZ
+  role: M2
+  email: chenzhao [at] sqlab.jp
+  order: 23
+- name: 張 皓添
+  slug: zhang-haotian
+  initial: ZH
+  role: M2
+  email: HTzhang [at] sqlab.jp
+  order: 24
+- name: 貞本 優菜
+  slug: yuna-sadamoto
+  initial: YS
+  role: M1
+  email: yunas30211 [at] sqlab.jp
+  order: 31
+- name: 長谷川 雄一
+  slug: yuichi-hasegawa
+  initial: YH
+  role: M1
+  email: yuichihase [at] sqlab.jp
+  order: 32
+- name: 郷 颯真
+  slug: go-fuma
+  initial: GF
+  role: M1
+  email: go.fuma [at] sqlab.jp
+  order: 33
+- name: 松井 凜太郎
+  slug: matsui-rintaro
+  initial: MR
+  role: M1
+  email: matsurin [at] sqlab.jp
+  order: 34
+- name: "⽥中 良尚"
+  slug: tanaka-yoshinao
+  initial: TY
+  role: M1
+  email: y_tanaka [at] sqlab.jp
+  order: 35
+- name: 加納 成博
+  slug: kano-narihiro
+  initial: KN
+  role: B4
+  email: narihirokanoh [at] sqlab.jp
+  order: 41
+- name: "⼭⽥ 拓歩"
+  slug: takuho-yamada
+  initial: TY
+  role: B4
+  email: y-takuho [at] sqlab.jp
+  order: 42
+- name: "⻤頭 海吏"
+  slug: kairi-kito
+  initial: KK
+  role: B4
+  email: kitokairi [at] sqlab.jp
+  order: 43
