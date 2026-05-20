@@ -1,0 +1,38 @@
+title: "結縁・中澤研究室"
+title_en: "Yuen/Nakazawa Laboratory"
+description: "人と社会に寄り添う知能情報システムを研究する研究室サイト"
+lang: ja
+timezone: Asia/Tokyo
+url: "https://sqlab-website.github.io"
+baseurl: ""
+
+lab:
+  university: "名古屋大学情報学研究科情報システム学専攻"
+  university_en: "Department of Computing and Software Systems, Graduate School of Informatics, Nagoya University"
+  professor: "結縁祥治"
+  professor_en: "Shoji Yuen"
+  email: "sec [at] sqlab.jp"
+  address: "〒464-8601 名古屋市千種区不老町 IB電子情報館南棟5F"
+  address_en: "IB Building S559, Furo-cho, Chikusa-ku, Nagoya, Japan 464801"
+
+collections:
+  news:
+    output: true
+    permalink: /news/:path/
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor

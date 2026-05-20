@@ -1,0 +1,20 @@
+---
+- id: sym-rc2026
+  year: '2026'
+  title: Introducing Time Passage to the Reversible Semantics for Erlang
+  authors: Yuna Sadamoto, Shoji Yuen, Claudio Antares Mezzina
+  publisher: In Proceedings of Reversible Computation RC2026
+  order: 1
+- id: ky-ss2025
+  year: '2026'
+  title: 可逆プロセス計算CCSKにおける等価性検証
+  authors: 川野蓮弥，結縁祥治
+  publisher: 信学技報, vol. 125, no. 376, SS2025-43, pp. 79-84, 2026年3月
+  order: 2
+- id: oy-rc2025
+  year: '2025'
+  title: 'RevMiGo: Reversible Channel_Based Communication in Go Language'
+  authors: Shunya Oguchi, Shoji Yuen, Nobuko Yoshida
+  publisher: Reversible Computation 2026, LNCS 15716, pp 119-127
+  doi: 10.1007/978-3-031-97063-4_9
+  order: 1

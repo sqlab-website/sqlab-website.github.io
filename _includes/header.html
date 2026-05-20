@@ -1,0 +1,39 @@
+<header class="site-header">
+  {% assign is_en = page.lang == 'en' %}
+  {% if is_en %}
+    {% assign alternate_url = page.url | remove_first: '/en' %}
+    {% if alternate_url == '' %}
+      {% assign alternate_url = '/' %}
+    {% endif %}
+  {% else %}
+    {% if page.url == '/' %}
+      {% assign alternate_url = '/en/' %}
+    {% else %}
+      {% assign alternate_url = page.url | prepend: '/en' %}
+    {% endif %}
+  {% endif %}
+  <a class="brand" href="{% if is_en %}{{ '/en/' | relative_url }}{% else %}{{ '/' | relative_url }}{% endif %}">
+    <span class="brand__mark" aria-hidden="true">SQLAB</span>
+    <span>{% if is_en %}{{ site.title_en }}{% else %}{{ site.title }}{% endif %}</span>
+  </a>
+  <nav class="site-nav" aria-label="{% if is_en %}Primary navigation{% else %}主要ナビゲーション{% endif %}">
+    {% if is_en %}
+      <a href="{{ '/en/' | relative_url }}">Home</a>
+      <a href="{{ '/en/research/' | relative_url }}">Research</a>
+      <a href="{{ '/en/members/' | relative_url }}">Members</a>
+      <a href="{{ '/en/publications/' | relative_url }}">Publications</a>
+      <a href="{{ '/en/events/' | relative_url }}">Events</a>
+      <a href="{{ '/en/contact/' | relative_url }}">Contact</a>
+      <a class="lang-link" href="{{ alternate_url | relative_url }}">日本語</a>
+    {% else %}
+      <a href="{{ '/' | relative_url }}">ホーム</a>
+      <a href="{{ '/research/' | relative_url }}">研究</a>
+      <a href="{{ '/members/' | relative_url }}">メンバー</a>
+      <a href="{{ '/publications/' | relative_url }}">業績</a>
+      <a href="{{ '/news/' | relative_url }}">ニュース</a>
+      <a href="{{ '/events/' | relative_url }}">イベント</a>
+      <a href="{{ '/contact/' | relative_url }}">問い合わせ</a>
+      <a class="lang-link" href="{{ alternate_url | relative_url }}">English</a>
+    {% endif %}
+  </nav>
+</header>

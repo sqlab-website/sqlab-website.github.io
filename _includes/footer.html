@@ -1,0 +1,5 @@
+<footer class="site-footer">
+  {% assign is_en = page.lang == 'en' %}
+  <p>&copy; {{ site.time | date: "%Y" }} {% if is_en %}{{ site.title_en }}{% else %}{{ site.title }}{% endif %}</p>
+  <p>{% if is_en %}{{ site.lab.university_en }}{% else %}{{ site.lab.university }}{% endif %}</p>
+</footer>

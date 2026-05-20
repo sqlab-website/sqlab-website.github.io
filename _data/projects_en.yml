@@ -1,0 +1,10 @@
+- year: 2026
+  title: Proof-Oriented Programming Models
+  summary: We develop models that make program behavior easier to specify, reason about, and verify.
+- year: 2026
+  title: Type Systems for Information Flow
+  summary: We study typed approaches to describing how information is transformed across systems.
+- year: 2025
+  title: Formal Semantics Reading Group
+  summary: We read and discuss papers on operational semantics, fixed points, and program equivalence.
+

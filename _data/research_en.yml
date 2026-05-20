@@ -1,0 +1,47 @@
+---
+- id: program-analysis-verification
+  area: Program Analysis and Verification
+  title: Program Analysis and Verification
+  summary: Development of High-quality software by Mathematical Methods
+  description: A program is not valuable simply because it “works.” It is important
+    that it behaves exactly as intended by the developer, for example, by guaranteeing
+    that it always terminates for any input. How can we ensure that such properties
+    hold? One might think that testing every possible input would be sufficient. That
+    may work when the input domain is small. In general, however, the set of possible
+    inputs is infinite, making exhaustive testing impossible. The Yuen-Nakazawa Laboratory
+    conducts research on mathematically proving that programs satisfy certain properties.
+    In particular, we study topics such as model checking, abstract interpretation,
+    and type systems. Although the word “proof” may evoke the image of people struggling
+    through mathematical arguments by hand, as in high school mathematics, many aspects
+    of these proofs can in fact be automated using computers. Research of this kind
+    is essential for developing high-quality software.
+  order: 1
+- id: reversible-concurrent-programming
+  area: Reversible Concurrent Programming
+  title: Reversible Concurrent Programming
+  summary: New Software Analysis by Causal-consistent Reversibility
+  description: When executing a program, information that is no longer needed is typically
+    discarded as the computation proceeds. If the program does not behave as intended,
+    however, the cause of the problem is often hidden within the information that
+    has already been forgotten. To execute a program reversibly, it is necessary to
+    preserve the information used during execution, including information that would
+    normally be discarded. The concept of reversible computing defines the necessary
+    and sufficient information required for execution. Based on this idea, we study
+    frameworks for improving the reliability of software—particularly concurrent software—through
+    techniques such as debugging.
+  order: 2
+- id: realtime-concurrent-software
+  area: Real-time Concurrent Software
+  title: Real-time Concurrent Software
+  summary: Improve Relaiablity of Realtime software based on abstract medelling
+  description: Many systems used in the real world are composed of multiple subsystems
+    operating concurrently. In many cases, each subsystem must satisfy temporal constraints
+    such as “the processing must be completed within a certain time.” When these systems
+    operate while sharing resources such as CPUs and memory, determining whether they
+    behave correctly becomes a difficult problem. The Yuen-Nakazawa Laboratory studies
+    methods for developing real-time concurrent systems whose correctness is guaranteed
+    while keeping development costs low. Our main research areas include the theoretical
+    foundations of formal methods such as process algebras and timed automata, as
+    well as development techniques based on these formal methods, including modeling,
+    model checking, and code generation.
+  order: 3
