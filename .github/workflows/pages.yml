@@ -6,7 +6,7 @@ on:
       - main
   workflow_dispatch:
   schedule:
-    - cron: "55 * * * *"
+    - cron: "15 21 * * *"
 
 permissions:
   contents: read

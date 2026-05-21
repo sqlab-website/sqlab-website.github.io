@@ -121,6 +121,41 @@ NEWS_SHEET_ID=GoogleスプレッドシートID NEWS_SHEET_GID=0 ruby scripts/syn
 
 GitHub Actionsで自動同期する場合は、リポジトリのSecretsに`NEWS_SHEET_CSV_URL`または`NEWS_SHEET_ID`を設定します。シートは「リンクを知っている全員が閲覧可」にしておきます。
 
+## Google Sheetsの編集をきっかけに更新
+
+GitHub Actionsの`schedule`は遅延・未実行になることがあるため、Google Sheetsを編集したタイミングでGitHub Actionsを起動できます。
+
+使うファイル:
+
+```text
+scripts/google_sheets_workflow_dispatch.gs
+```
+
+設定手順:
+
+1. GitHubでPersonal access tokenを作成します。
+   - Fine-grained tokenの場合、対象リポジトリを`sqlab-website/sqlab-website.github.io`に限定します。
+   - Repository permissionsで`Actions: Read and write`を許可します。
+2. Google Sheetsで `拡張機能` -> `Apps Script` を開きます。
+3. `scripts/google_sheets_workflow_dispatch.gs` の内容を貼り付けます。
+4. Apps Scriptの `プロジェクトの設定` -> `スクリプト プロパティ` に次を追加します。
+
+```text
+GITHUB_TOKEN = 作成したPersonal access token
+```
+
+5. Apps Scriptの `トリガー` で、次のトリガーを追加します。
+   - 実行する関数: `onSheetEdit`
+   - イベントのソース: `スプレッドシートから`
+   - イベントの種類: `編集時`
+6. 必要なら、構造変更にも反応するように次のトリガーも追加します。
+   - 実行する関数: `onSheetChange`
+   - イベントのソース: `スプレッドシートから`
+   - イベントの種類: `変更時`
+7. `testWebsiteWorkflowDispatch` を手動実行し、GitHub Actionsが起動することを確認します。
+
+同じ設定を、メンバー・研究内容・イベント・業績・ニュースの各Google Sheetsに入れると、それぞれの編集をきっかけにサイト更新が走ります。短時間に何度も編集した場合は、`MIN_INTERVAL_MINUTES`により5分以内の連続起動を抑制します。
+
 ## GitHub Pagesで公開
 
 1. このフォルダをGitHubリポジトリにpushします。

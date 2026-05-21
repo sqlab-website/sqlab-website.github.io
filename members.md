@@ -6,7 +6,7 @@ permalink: /members/
 <section class="page-header">
   <p class="eyebrow">Members</p>
   <h1>メンバー</h1>
-  <p>研究室の構成員です。氏名やテーマは`_data/members.yml`から更新できます。</p>
+  <p>研究室の構成員です。</p>
 </section>
 
 <section class="section">
