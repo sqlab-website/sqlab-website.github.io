@@ -19,18 +19,18 @@ permalink: "/members/shoji-yuen/"
 [名古屋大学](https://www.nagoya-u.ac.jp) [大学院情報学研究科](https://www.i.nagoya-u.ac.jp) 
 [情報システム学専攻](https://www.i.nagoya-u.ac.jp/gs/css/) ソフトウェア論講座　教授
 
-## 研究トピック
+# 研究トピック
 
 * 可逆並行計算モデル
 * 可逆プログラミング言語
 * 通信プロセスモデル
 * 実時間プログラム
 
-## 研究
+# 研究
 
 * [論文リスト(dblp)](https://dblp.org/pid/71/4155.html)
 
-## 担当講義
+# 担当講義
 
 * システム検証および演習
 * コンパイラ
@@ -38,6 +38,10 @@ permalink: "/members/shoji-yuen/"
 
 * ソフトウェア基礎論特論B
 * 並行分散計算特論
+
+# 趣味
+
+* [大相撲観戦](https://sumo.or.jp/)
 </div>
     <div class="profile-block profile-block--compact">
           <p class="eyebrow">Contact</p>

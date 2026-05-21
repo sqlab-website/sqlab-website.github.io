@@ -41,6 +41,10 @@ Doctor(Engineering) (Nagoya University)
 
 * Foundation of Software
 * Concurrency
+
+# Hobby
+
+* [Oozumo](https://sumo.or.jp/EN/)
 </div>
     <div class="profile-block profile-block--compact">
           <p class="eyebrow">Contact</p>

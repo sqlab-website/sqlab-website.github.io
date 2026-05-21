@@ -201,24 +201,30 @@ def write_profile(path, member, lang:)
   external_links = []
   external_links << [personal_site_label, personal_site_text, member["website"]] if member["website"]
   external_links << [profile_label, profile_text, google_drive_view_url(member["profile_md_url"])] if member["profile_md_url"] && !present?(profile_markdown)
+  links_content = if external_links.any?
+                    link_items = external_links.map do |label, text, href|
+                      <<~HTML
+                        <p><strong>#{label}</strong><br><a class="button" href="#{href}">#{text}</a></p>
+                      HTML
+                    end.join("\n")
+                    <<~HTML
+                      <div class="profile-block profile-block--compact">
+                        <p class="eyebrow">Links</p>
+                        #{link_items}
+                      </div>
+                    HTML
+                  else
+                    ""
+                  end
   profile_content = if present?(profile_markdown)
                       <<~HTML
                         <div class="profile-block profile-markdown" markdown="1">
                         #{profile_markdown}
                         </div>
+                        #{links_content.rstrip}
                       HTML
                     elsif external_links.any?
-                      link_items = external_links.map do |label, text, href|
-                        <<~HTML
-                          <p><strong>#{label}</strong><br><a class="button" href="#{href}">#{text}</a></p>
-                        HTML
-                      end.join("\n")
-                      <<~HTML
-                        <div class="profile-block profile-block--compact">
-                          <p class="eyebrow">Links</p>
-                          #{link_items}
-                        </div>
-                      HTML
+                      links_content
                     else
                       <<~HTML
                         <div class="profile-block">
