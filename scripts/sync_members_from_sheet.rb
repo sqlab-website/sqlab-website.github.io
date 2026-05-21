@@ -129,6 +129,9 @@ def member_from(row, lang)
   name = value(row, "name_#{suffix}")
   return nil unless present?(name)
 
+  order = (value(row, "order") || "999").to_i
+  return nil if order.zero?
+
   slug = value(row, "slug")
   slug = slugify(value(row, "name_en") || name) unless present?(slug)
 
@@ -143,7 +146,7 @@ def member_from(row, lang)
     "website" => value(row, "website_#{suffix}") || value(row, "web") || value(row, "website") || "",
     "photo_url" => value(row, "photo_url") || "",
     "profile_md_url" => value(row, "profile_md_#{suffix}_url") || "",
-    "order" => (value(row, "order") || "999").to_i
+    "order" => order
   }.delete_if { |_key, item| item == "" }
 end
 
