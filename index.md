@@ -35,22 +35,6 @@ permalink: /
   </div>
 </section>
 
-<section class="section section--projects">
-  <div class="section__heading">
-    <p class="eyebrow">Projects</p>
-    <h2>進行中のプロジェクト</h2>
-  </div>
-  <div class="project-list">
-    {% for project in site.data.projects %}
-      <article class="project">
-        <span>{{ project.year }}</span>
-        <h3>{{ project.title }}</h3>
-        <p>{{ project.summary }}</p>
-      </article>
-    {% endfor %}
-  </div>
-</section>
-
 <section class="section section--muted">
   <div class="section__heading">
     <p class="eyebrow">News</p>
@@ -58,7 +42,7 @@ permalink: /
   </div>
   <div class="news-list">
     {% assign latest_news = site.news | sort: 'date' | reverse %}
-    {% for post in latest_news limit:4 %}
+    {% for post in latest_news limit:2 %}
       <a class="news-item" href="{{ post.url | relative_url }}">
         <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d" }}</time>
         <span>{{ post.title }}</span>

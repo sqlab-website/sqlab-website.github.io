@@ -37,22 +37,6 @@ site_title: Yuen/Nakazawa Laboratory
   </div>
 </section>
 
-<section class="section section--projects">
-  <div class="section__heading">
-    <p class="eyebrow">Projects</p>
-    <h2>Current Projects</h2>
-  </div>
-  <div class="project-list">
-    {% for project in site.data.projects_en %}
-      <article class="project">
-        <span>{{ project.year }}</span>
-        <h3>{{ project.title }}</h3>
-        <p>{{ project.summary }}</p>
-      </article>
-    {% endfor %}
-  </div>
-</section>
-
 <section class="section section--muted">
   <div class="section__heading">
     <p class="eyebrow">Events</p>
