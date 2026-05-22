@@ -1,20 +1,95 @@
 ---
-- id: sym-rc2026
-  year: '2026'
-  title: Introducing Time Passage to the Reversible Semantics for Erlang
-  authors: Yuna Sadamoto, Shoji Yuen, Claudio Antares Mezzina
-  publisher: In Proceedings of Reversible Computation RC2026
-  order: 1
-- id: ky-ss2025
+- id: SS2025-43
+  entry_type: techreport
   year: '2026'
   title: 可逆プロセス計算CCSKにおける等価性検証
-  authors: 川野蓮弥，結縁祥治
-  publisher: 信学技報, vol. 125, no. 376, SS2025-43, pp. 79-84, 2026年3月
-  order: 2
-- id: oy-rc2025
+  authors: 川野蓮弥, 結縁祥治
+  institution: 電子情報通信学会
+  report_type: 信学技報
+  number: vol. 125, no. 376, SS2025-43, pp. 79-84
+  publisher: 電子情報通信学会, 信学技報, vol. 125, no. 376, SS2025-43, pp. 79-84
+  bibtex_url: "/publications/bibtex/ss2025-43/"
+  order: 3
+- id: sigss2026-award
+  entry_type: award
+  year: '2026'
+  title: 研究奨励賞
+  authors: 川野蓮弥, 結縁祥治
+  howpublished: 電子情報通信学会ソフトウェアサイエンス研究会
+  publisher: 電子情報通信学会ソフトウェアサイエンス研究会
+  bibtex_url: "/publications/bibtex/sigss2026-award/"
+  order: 6
+- id: DBLP:journals/aml/SaotomeNKK26
+  entry_type: article
+  year: '2026'
+  title: Failure of cut-elimination in cyclic-proof systems of logic of bunched implications
+    with inductive propositions
+  authors: Kenji Saotome, Koji Nakazawa, Daisuke Kimura, Ayumu Kawasaki
+  journal: Arch. Math. Log.
+  volume: '65'
+  number: '3'
+  publisher: Arch. Math. Log., vol. 65, no. 3
+  doi: 10.1007/S00153-025-00993-2
+  bibtex_url: "/publications/bibtex/dblp-journals-aml-saotomenkk26/"
+  bibtex_source_url: https://dblp.org/rec/journals/aml/SaotomeNKK26.bib
+  order: 7
+- id: DBLP:conf/rc/OguchiYY25
+  entry_type: inproceedings
   year: '2025'
-  title: 'RevMiGo: Reversible Channel_Based Communication in Go Language'
+  title: 'RevMiGo: Reversible Channel-Based Communication in Go Language'
   authors: Shunya Oguchi, Shoji Yuen, Nobuko Yoshida
-  publisher: Reversible Computation 2026, LNCS 15716, pp 119-127
+  booktitle: Reversible Computation - 17th International Conference, RC 2025, Odense,
+    Denmark, July 3-4, 2025, Proceedings
+  series: Lecture Notes in Computer Science
+  pages: 119--127
+  publisher_name: Springer
+  publisher: Reversible Computation - 17th International Conference, RC 2025, Odense,
+    Denmark, July 3-4, 2025, Proceedings, Lecture Notes in Computer Science, pp. 119--127,
+    Springer
   doi: 10.1007/978-3-031-97063-4_9
+  bibtex_url: "/publications/bibtex/dblp-conf-rc-oguchiyy25/"
+  bibtex_source_url: https://dblp.org/rec/conf/rc/OguchiYY25.bib
   order: 1
+- id: DBLP:journals/jip/OguchiY24
+  entry_type: article
+  year: '2024'
+  title: Constant Propagation in CRIL by Bidirectional Data Flow Analysis
+  authors: Shunya Oguchi, Shoji Yuen
+  journal: J. Inf. Process.
+  volume: '32'
+  publisher: J. Inf. Process., vol. 32
+  doi: 10.2197/IPSJJIP.32.552
+  bibtex_url: "/publications/bibtex/dblp-journals-jip-oguchiy24/"
+  bibtex_source_url: https://dblp.org/rec/journals/jip/OguchiY24.bib
+  order: 4
+- id: DBLP:journals/lmcs/BocchiLMY24
+  entry_type: article
+  year: '2024'
+  title: 'revTPL: The Reversible Temporal Process Language'
+  authors: Laura Bocchi, Ivan Lanese, Claudio Antares Mezzina, Shoji Yuen
+  journal: Log. Methods Comput. Sci.
+  volume: '20'
+  number: '1'
+  publisher: Log. Methods Comput. Sci., vol. 20, no. 1
+  doi: 10.46298/LMCS-20(1:11)2024
+  bibtex_url: "/publications/bibtex/dblp-journals-lmcs-bocchilmy24/"
+  bibtex_source_url: https://dblp.org/rec/journals/lmcs/BocchiLMY24.bib
+  order: 2
+- id: DBLP:conf/rc/OguchiY24
+  entry_type: inproceedings
+  year: '2024'
+  title: 'Concurrent RSSA for CRIL: Flow Analysis for a Concurrent Reversible Programming
+    Language'
+  authors: Shunya Oguchi, Shoji Yuen
+  booktitle: Reversible Computation - 16th International Conference, RC 2024, Toru\'n,
+    Poland, July 4-5, 2024, Proceedings
+  series: Lecture Notes in Computer Science
+  pages: 181--200
+  publisher_name: Springer
+  publisher: Reversible Computation - 16th International Conference, RC 2024, Toru\'n,
+    Poland, July 4-5, 2024, Proceedings, Lecture Notes in Computer Science, pp. 181--200,
+    Springer
+  doi: 10.1007/978-3-031-62076-8_12
+  bibtex_url: "/publications/bibtex/dblp-conf-rc-oguchiy24/"
+  bibtex_source_url: https://dblp.org/rec/conf/rc/OguchiY24.bib
+  order: 5

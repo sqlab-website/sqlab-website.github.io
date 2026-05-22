@@ -545,11 +545,74 @@ h3 {
   padding: 0;
 }
 
+.publication-list__meta {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
 .publication-list__year {
   color: var(--accent);
-  display: block;
+  display: inline-flex;
   font-weight: 900;
-  margin-bottom: 8px;
+}
+
+.publication-list__title {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.publication-list__bibtex {
+  align-items: center;
+  background: #eef5f4;
+  border: 1px solid #c7d8d6;
+  border-radius: 4px;
+  color: #1f5557;
+  display: inline-flex;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.72rem;
+  font-weight: 900;
+  line-height: 1;
+  padding: 5px 7px;
+  text-decoration: none;
+}
+
+.publication-list__bibtex:hover {
+  background: #dfeceb;
+  transform: translateY(-1px);
+}
+
+.publication-list__type {
+  background: #263f45;
+  border-radius: 4px;
+  color: #f5faf9;
+  display: inline-flex;
+  font-size: 0.72rem;
+  font-weight: 900;
+  line-height: 1;
+  padding: 5px 7px;
+}
+
+.bibtex-entry {
+  background: #f7faf9;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow-x: auto;
+  padding: 20px;
+}
+
+.bibtex-entry pre {
+  margin: 0;
+}
+
+.bibtex-entry code {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  white-space: pre;
 }
 
 .contact-list {

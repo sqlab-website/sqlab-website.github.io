@@ -33,6 +33,12 @@ jobs:
       PUBLICATIONS_SHEET_CSV_URL: ${{ secrets.PUBLICATIONS_SHEET_CSV_URL }}
       PUBLICATIONS_SHEET_ID: ${{ secrets.PUBLICATIONS_SHEET_ID }}
       PUBLICATIONS_SHEET_GID: ${{ secrets.PUBLICATIONS_SHEET_GID }}
+      PUBLICATIONS_BIB_URLS: ${{ secrets.PUBLICATIONS_BIB_URLS }}
+      PUBLICATIONS_BIB_FILES: ${{ secrets.PUBLICATIONS_BIB_FILES }}
+      PUBLICATIONS_BIB_DIR: ${{ secrets.PUBLICATIONS_BIB_DIR }}
+      PUBLICATIONS_BIB_FOLDER_URL: ${{ secrets.PUBLICATIONS_BIB_FOLDER_URL }}
+      PUBLICATIONS_BIB_FOLDER_ID: ${{ secrets.PUBLICATIONS_BIB_FOLDER_ID }}
+      PUBLICATIONS_BIB_API_KEY: ${{ secrets.PUBLICATIONS_BIB_API_KEY }}
       NEWS_SHEET_CSV_URL: ${{ secrets.NEWS_SHEET_CSV_URL }}
       NEWS_SHEET_ID: ${{ secrets.NEWS_SHEET_ID }}
       NEWS_SHEET_GID: ${{ secrets.NEWS_SHEET_GID }}
@@ -55,9 +61,9 @@ jobs:
       - name: Sync events from Google Sheets
         if: ${{ env.EVENTS_SHEET_CSV_URL != '' || env.EVENTS_SHEET_ID != '' }}
         run: ruby scripts/sync_events_from_sheet.rb
-      - name: Sync publications from Google Sheets
-        if: ${{ env.PUBLICATIONS_SHEET_CSV_URL != '' || env.PUBLICATIONS_SHEET_ID != '' }}
-        run: ruby scripts/sync_publications_from_sheet.rb
+      - name: Sync publications from BibTeX
+        if: ${{ env.PUBLICATIONS_BIB_FOLDER_URL != '' || env.PUBLICATIONS_BIB_FOLDER_ID != '' || env.PUBLICATIONS_BIB_URLS != '' || env.PUBLICATIONS_BIB_FILES != '' || env.PUBLICATIONS_BIB_DIR != '' || hashFiles('_bibliography/*.bib') != '' }}
+        run: ruby scripts/sync_publications_from_bibtex.rb
       - name: Sync news from Google Sheets
         if: ${{ env.NEWS_SHEET_CSV_URL != '' || env.NEWS_SHEET_ID != '' }}
         run: ruby scripts/sync_news_from_sheet.rb

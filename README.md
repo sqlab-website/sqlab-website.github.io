@@ -83,7 +83,9 @@ GitHub Actionsで自動同期する場合は、リポジトリのSecretsに`EVEN
 
 ## Google Sheetsから業績を同期
 
-Google SheetsをCSVとして読み込み、業績一覧を生成できます。
+現在、公開サイトの業績一覧はBibTeXから生成します。Google Sheetsからの業績同期はGitHub Actionsでは実行しません。
+
+過去のGoogle Sheets形式は次の列でした。
 
 必要な列:
 
@@ -91,15 +93,102 @@ Google SheetsをCSVとして読み込み、業績一覧を生成できます。
 id,only_en,authors_ja,authors_en,title_ja,title_en,publisher_ja,publisher_en,year,doi,order
 ```
 
-`only_en`が空欄の場合は、日本語ページに日本語欄、英語ページに英語欄を表示します。`only_en`が`1`の場合は、英語欄を日本語ページと英語ページの両方に表示します。`only_en`が`0`の場合は、日本語ページのみに日本語欄を表示します。表示順は`year`の降順、同じ`year`内では`order`の昇順です。`doi`には`10.xxxx/...`形式のDOIまたはURLを入力できます。`doi`がある場合はタイトルにリンクを付けます。
+`only_en`が空欄の場合は、日本語ページに日本語欄、英語ページに英語欄を表示します。ただし、`title_ja`が空欄で`title_en`がある場合は、日本語ページにも英語欄を表示します。`only_en`が`1`の場合は、英語欄を日本語ページと英語ページの両方に表示します。`only_en`が`0`の場合は、日本語ページのみに日本語欄を表示します。表示順は`year`の降順、同じ`year`内では`order`の昇順です。`doi`には`10.xxxx/...`形式のDOIまたはURLを入力できます。`doi`がある場合はタイトルにリンクを付けます。
 
-ローカル実行例:
+ローカルで手動確認する場合:
 
 ```bash
 PUBLICATIONS_SHEET_ID=GoogleスプレッドシートID PUBLICATIONS_SHEET_GID=0 ruby scripts/sync_publications_from_sheet.rb
 ```
 
-GitHub Actionsで自動同期する場合は、リポジトリのSecretsに`PUBLICATIONS_SHEET_CSV_URL`または`PUBLICATIONS_SHEET_ID`を設定します。シートは「リンクを知っている全員が閲覧可」にしておきます。
+公開サイトに反映する業績は、次の「BibTeXから業績を同期」の方法で更新します。
+
+## BibTeXから業績を同期
+
+複数のBibTeXファイルを読み込み、統合した業績一覧を生成できます。
+
+標準の置き場所:
+
+```text
+_bibliography/*.bib
+```
+
+たとえば次のように、複数のBibTeXファイルを置けます。
+
+```text
+_bibliography/
+  yuen.bib
+  nakazawa.bib
+  students.bib
+```
+
+GitHub Actionsでは、`_bibliography/*.bib`が1つ以上ある場合、自動的にBibTeX同期を使います。この場合、業績のGoogle Sheets同期よりBibTeX同期が優先されます。
+
+ローカル実行例:
+
+```bash
+PUBLICATIONS_BIB_DIR=_bibliography ruby scripts/sync_publications_from_bibtex.rb
+```
+
+ファイルを明示する場合:
+
+```bash
+PUBLICATIONS_BIB_FILES=_bibliography/yuen.bib,_bibliography/nakazawa.bib ruby scripts/sync_publications_from_bibtex.rb
+```
+
+Google Drive上のBibTeXファイルを読む場合:
+
+```bash
+PUBLICATIONS_BIB_URLS="https://drive.google.com/file/d/.../view?usp=sharing,https://drive.google.com/file/d/.../view?usp=sharing" ruby scripts/sync_publications_from_bibtex.rb
+```
+
+Google Driveのフォルダ内にあるBibTeXファイルをまとめて読む場合:
+
+```bash
+PUBLICATIONS_BIB_FOLDER_URL="https://drive.google.com/drive/folders/..." PUBLICATIONS_BIB_API_KEY="Google API key" ruby scripts/sync_publications_from_bibtex.rb
+```
+
+共有ドライブの`SQlabWWW/publications`に`.bib`ファイルを置く場合は、`publications`フォルダのURLを`PUBLICATIONS_BIB_FOLDER_URL`に設定します。フォルダURLの代わりにフォルダIDだけを`PUBLICATIONS_BIB_FOLDER_ID`に設定しても構いません。フォルダ内の`.bib`ファイルだけを読み込み、複数ファイルを統合します。
+
+GitHub ActionsでGoogle Drive上のBibTeXを使う場合は、リポジトリのSecretsに次の値を設定します。
+
+- `PUBLICATIONS_BIB_FOLDER_URL`: `SQlabWWW/publications`フォルダのURL
+- `PUBLICATIONS_BIB_API_KEY`: Google Drive APIを有効にしたGoogle API key
+
+個別ファイルURLを使う場合は、`PUBLICATIONS_BIB_URLS`に複数ファイルをカンマ区切りで指定します。BibTeXを使う場合、業績のGoogle Sheets同期よりBibTeX同期が優先されます。Drive上の`.bib`ファイル、または`.bib`を置いたフォルダは「リンクを知っている全員が閲覧可」にしておきます。
+
+対応するBibTeX entry:
+
+- `@article`
+- `@inproceedings`
+- `@techreport`
+- `@misc`のうち、フィールド中に「受賞」を含むもの
+
+`@article`では次のフィールドを収集します。
+
+```text
+author,title,journal,volume,number,year,doi
+```
+
+`@inproceedings`では次のフィールドを収集します。
+
+```text
+author,title,booktitle,series,pages,publisher,year,doi
+```
+
+`@techreport`では次のフィールドを収集します。
+
+```text
+title,author,institution,year,type,number,month,doi
+```
+
+受賞として扱う`@misc`では次のフィールドを収集します。日本語の業績ページにのみ表示します。
+
+```text
+author,title,howpublished,year,month
+```
+
+BibTeX keyを`id`として使います。同じkeyが複数ファイルにある場合は、最初に読まれた1件だけを採用します。表示順は`year`の降順、同じ`year`内では`month`の降順、`month`がない場合は`0`として扱い、その後にBibTeXファイル内での出現順です。`month`は表示しません。`doi`がある場合は、タイトルにDOIリンクを付けます。
 
 ## Google Sheetsからニュースを同期
 

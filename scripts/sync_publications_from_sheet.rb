@@ -49,6 +49,11 @@ def publication_from(row, lang)
   use_english = lang == :en || en_only?(row)
   suffix = use_english ? "en" : "ja"
   title = value(row, "title_#{suffix}")
+  if lang == :ja && !present?(title) && present?(value(row, "title_en"))
+    use_english = true
+    suffix = "en"
+    title = value(row, "title_en")
+  end
   return nil unless present?(title)
   return nil if lang == :en && ja_only?(row)
 
