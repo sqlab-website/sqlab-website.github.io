@@ -422,7 +422,9 @@ def bibtex_page(publication, lang)
 
     <section class="section">
       <div class="bibtex-entry">
+        {% raw %}
         <pre><code>#{escaped_bibtex}</code></pre>
+        {% endraw %}
       </div>
       <p><a class="member-card__link" href="{{ '#{back_path}' | relative_url }}">#{back_label}</a></p>
     </section>

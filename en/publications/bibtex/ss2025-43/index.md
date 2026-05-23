@@ -13,6 +13,7 @@ site_title: Yuen/Nakazawa Laboratory
 
 <section class="section">
   <div class="bibtex-entry">
+    {% raw %}
     <pre><code>@techreport{SS2025-43,
   author      = {川野蓮弥 and 結縁祥治},
   title       = {可逆プロセス計算CCSKにおける等価性検証},
@@ -22,6 +23,7 @@ site_title: Yuen/Nakazawa Laboratory
   number      = {vol. 125, no. 376, SS2025-43, pp. 79-84},
   month       = {3}
 }</code></pre>
+    {% endraw %}
   </div>
   <p><a class="member-card__link" href="{{ '/en/publications/' | relative_url }}">Back to Publications</a></p>
 </section>

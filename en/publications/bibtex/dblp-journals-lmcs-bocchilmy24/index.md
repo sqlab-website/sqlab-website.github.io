@@ -13,6 +13,7 @@ site_title: Yuen/Nakazawa Laboratory
 
 <section class="section">
   <div class="bibtex-entry">
+    {% raw %}
     <pre><code>@article{DBLP:journals/lmcs/BocchiLMY24,
   author       = {Laura Bocchi and
                   Ivan Lanese and
@@ -30,6 +31,7 @@ site_title: Yuen/Nakazawa Laboratory
   bibsource    = {dblp computer science bibliography, https://dblp.org},
   month        = {1}
 }</code></pre>
+    {% endraw %}
   </div>
   <p><a class="member-card__link" href="{{ '/en/publications/' | relative_url }}">Back to Publications</a></p>
 </section>

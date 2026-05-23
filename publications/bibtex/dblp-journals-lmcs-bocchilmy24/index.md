@@ -11,6 +11,7 @@ permalink: "/publications/bibtex/dblp-journals-lmcs-bocchilmy24/"
 
 <section class="section">
   <div class="bibtex-entry">
+    {% raw %}
     <pre><code>@article{DBLP:journals/lmcs/BocchiLMY24,
   author       = {Laura Bocchi and
                   Ivan Lanese and
@@ -28,6 +29,7 @@ permalink: "/publications/bibtex/dblp-journals-lmcs-bocchilmy24/"
   bibsource    = {dblp computer science bibliography, https://dblp.org},
   month        = {1}
 }</code></pre>
+    {% endraw %}
   </div>
   <p><a class="member-card__link" href="{{ '/publications/' | relative_url }}">業績一覧へ戻る</a></p>
 </section>

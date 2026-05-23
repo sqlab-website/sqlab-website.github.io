@@ -14,6 +14,7 @@ site_title: Yuen/Nakazawa Laboratory
 
 <section class="section">
   <div class="bibtex-entry">
+    {% raw %}
     <pre><code>@article{DBLP:journals/aml/SaotomeNKK26,
   author       = {Kenji Saotome and
                   Koji Nakazawa and
@@ -32,6 +33,7 @@ site_title: Yuen/Nakazawa Laboratory
   biburl       = {https://dblp.org/rec/journals/aml/SaotomeNKK26.bib},
   bibsource    = {dblp computer science bibliography, https://dblp.org}
 }</code></pre>
+    {% endraw %}
   </div>
   <p><a class="member-card__link" href="{{ '/en/publications/' | relative_url }}">Back to Publications</a></p>
 </section>

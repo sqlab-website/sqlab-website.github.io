@@ -32,7 +32,7 @@
   doi: 10.1007/S00153-025-00993-2
   bibtex_url: "/publications/bibtex/dblp-journals-aml-saotomenkk26/"
   bibtex_source_url: https://dblp.org/rec/journals/aml/SaotomeNKK26.bib
-  order: 7
+  order: 8
 - id: DBLP:conf/rc/OguchiYY25
   entry_type: inproceedings
   year: '2025'
@@ -93,3 +93,22 @@
   bibtex_url: "/publications/bibtex/dblp-conf-rc-oguchiy24/"
   bibtex_source_url: https://dblp.org/rec/conf/rc/OguchiY24.bib
   order: 5
+- id: DBLP:journals/corr/abs-2309-07310
+  entry_type: inproceedings
+  year: '2023'
+  title: 'CRIL: A Concurrent Reversible Intermediate Language'
+  authors: Shunya Oguchi, Shoji Yuen
+  booktitle: Proceedings Combined 30th International Workshop on Expressiveness in
+    Concurrency and 20th Workshop on Structural Operational Semantics, EXPRESS/SOS
+    2023, and 20th Workshop on Structural Operational SemanticsAntwerp, Belgium, 18th
+    September 2023
+  series: EPTCS
+  pages: 149--167
+  publisher: Proceedings Combined 30th International Workshop on Expressiveness in
+    Concurrency and 20th Workshop on Structural Operational Semantics, EXPRESS/SOS
+    2023, and 20th Workshop on Structural Operational SemanticsAntwerp, Belgium, 18th
+    September 2023, EPTCS, pp. 149--167
+  doi: 10.4204/EPTCS.387.11
+  bibtex_url: "/publications/bibtex/dblp-journals-corr-abs-2309-07310/"
+  bibtex_source_url: https://dblp.org/rec/journals/corr/abs-2309-07310.bib
+  order: 7

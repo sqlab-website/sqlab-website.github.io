@@ -13,6 +13,7 @@ site_title: Yuen/Nakazawa Laboratory
 
 <section class="section">
   <div class="bibtex-entry">
+    {% raw %}
     <pre><code>@misc{sigss2026-award,
   author	= {川野蓮弥 and 結縁祥治},
   title		= {研究奨励賞},
@@ -20,6 +21,7 @@ site_title: Yuen/Nakazawa Laboratory
   year          = {2026},
   note          = {受賞}
 }</code></pre>
+    {% endraw %}
   </div>
   <p><a class="member-card__link" href="{{ '/en/publications/' | relative_url }}">Back to Publications</a></p>
 </section>

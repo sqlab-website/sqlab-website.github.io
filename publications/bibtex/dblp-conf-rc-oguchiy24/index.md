@@ -12,6 +12,7 @@ permalink: "/publications/bibtex/dblp-conf-rc-oguchiy24/"
 
 <section class="section">
   <div class="bibtex-entry">
+    {% raw %}
     <pre><code>@inproceedings{DBLP:conf/rc/OguchiY24,
   author       = {Shunya Oguchi and
                   Shoji Yuen},
@@ -31,6 +32,7 @@ permalink: "/publications/bibtex/dblp-conf-rc-oguchiy24/"
   biburl       = {https://dblp.org/rec/conf/rc/OguchiY24.bib},
   bibsource    = {dblp computer science bibliography, https://dblp.org}
 }</code></pre>
+    {% endraw %}
   </div>
   <p><a class="member-card__link" href="{{ '/publications/' | relative_url }}">業績一覧へ戻る</a></p>
 </section>

@@ -13,6 +13,7 @@ site_title: Yuen/Nakazawa Laboratory
 
 <section class="section">
   <div class="bibtex-entry">
+    {% raw %}
     <pre><code>@inproceedings{DBLP:conf/rc/OguchiYY25,
   author       = {Shunya Oguchi and
                   Shoji Yuen and
@@ -33,6 +34,7 @@ site_title: Yuen/Nakazawa Laboratory
   bibsource    = {dblp computer science bibliography, https://dblp.org},
   month        = {7}
 }</code></pre>
+    {% endraw %}
   </div>
   <p><a class="member-card__link" href="{{ '/en/publications/' | relative_url }}">Back to Publications</a></p>
 </section>

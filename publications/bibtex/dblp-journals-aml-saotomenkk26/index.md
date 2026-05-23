@@ -12,6 +12,7 @@ permalink: "/publications/bibtex/dblp-journals-aml-saotomenkk26/"
 
 <section class="section">
   <div class="bibtex-entry">
+    {% raw %}
     <pre><code>@article{DBLP:journals/aml/SaotomeNKK26,
   author       = {Kenji Saotome and
                   Koji Nakazawa and
@@ -30,6 +31,7 @@ permalink: "/publications/bibtex/dblp-journals-aml-saotomenkk26/"
   biburl       = {https://dblp.org/rec/journals/aml/SaotomeNKK26.bib},
   bibsource    = {dblp computer science bibliography, https://dblp.org}
 }</code></pre>
+    {% endraw %}
   </div>
   <p><a class="member-card__link" href="{{ '/publications/' | relative_url }}">業績一覧へ戻る</a></p>
 </section>

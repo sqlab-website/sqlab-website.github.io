@@ -11,6 +11,7 @@ permalink: "/publications/bibtex/ss2025-43/"
 
 <section class="section">
   <div class="bibtex-entry">
+    {% raw %}
     <pre><code>@techreport{SS2025-43,
   author      = {川野蓮弥 and 結縁祥治},
   title       = {可逆プロセス計算CCSKにおける等価性検証},
@@ -20,6 +21,7 @@ permalink: "/publications/bibtex/ss2025-43/"
   number      = {vol. 125, no. 376, SS2025-43, pp. 79-84},
   month       = {3}
 }</code></pre>
+    {% endraw %}
   </div>
   <p><a class="member-card__link" href="{{ '/publications/' | relative_url }}">業績一覧へ戻る</a></p>
 </section>
