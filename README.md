@@ -212,7 +212,7 @@ GitHub Actionsで自動同期する場合は、リポジトリのSecretsに`NEWS
 
 ## Google Sheetsの編集をきっかけに更新
 
-GitHub Actionsの`schedule`は遅延・未実行になることがあるため、Google Sheetsを編集したタイミングでGitHub Actionsを起動できます。
+GitHub Actionsの`schedule`は遅延・未実行になることがあるため、Google Sheetsを編集したタイミングでGitHub Actionsを起動できます。編集後すぐには起動せず、最後の編集から2分後にGitHub Actionsを起動します。
 
 使うファイル:
 
@@ -243,7 +243,7 @@ GITHUB_TOKEN = 作成したPersonal access token
    - イベントの種類: `変更時`
 7. `testWebsiteWorkflowDispatch` を手動実行し、GitHub Actionsが起動することを確認します。
 
-同じ設定を、メンバー・研究内容・イベント・業績・ニュースの各Google Sheetsに入れると、それぞれの編集をきっかけにサイト更新が走ります。短時間に何度も編集した場合は、`MIN_INTERVAL_MINUTES`により5分以内の連続起動を抑制します。
+同じ設定を、メンバー・研究内容・イベント・業績・ニュースの各Google Sheetsに入れると、それぞれの編集をきっかけにサイト更新が走ります。短時間に何度も編集した場合は、2分後の起動予約を作り直します。また、`MIN_INTERVAL_MINUTES`により5分以内の連続起動を抑制します。
 
 ## GitHub Pagesで公開
 

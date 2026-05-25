@@ -63,6 +63,10 @@ site_title: Yuen/Nakazawa Laboratory
     <p>
       Please contact us if you are interested in joining the lab, discussing graduate study, or exploring research collaboration.
     </p>
+    <p>
+      <strong>Note:</strong> Prof. Shoji Yuen accepts no students because of his retirement.
+      Please contact Prof. Nakazawa if you seek any chance of working in the lab.
+    </p>
   </div>
   <a class="button" href="{{ '/en/contact/' | relative_url }}">Contact Us</a>
 </section>

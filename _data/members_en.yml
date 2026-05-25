@@ -34,6 +34,12 @@
   role: Secretary
   email: mmurase [at] sqlab.jp
   order: 4
+- name: Mizuhito Ogawa
+  slug: mizuhito-ogawa
+  initial: MO
+  role: Visiting Scholar
+  email: mizuhito [at] sqlab.jp
+  order: 5
 - name: Shunya Oguchi
   slug: shunya-oguchi
   initial: SO

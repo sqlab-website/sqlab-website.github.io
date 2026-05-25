@@ -259,11 +259,11 @@ end
 url = sheet_url
 abort_with("Set MEMBERS_SHEET_CSV_URL or MEMBERS_SHEET_ID.") unless url
 
-csv_text = URI.open(url, &:read)
+csv_text = URI.open(url, &:read).force_encoding("UTF-8").encode("UTF-8", invalid: :replace, undef: :replace)
 rows = CSV.parse(csv_text, headers: true)
 
-members_ja = rows.filter_map { |row| member_from(row, :ja) }.sort_by { |member| member["order"] }
-members_en = rows.filter_map { |row| member_from(row, :en) }.sort_by { |member| member["order"] }
+members_ja = rows.map { |row| member_from(row, :ja) }.compact.sort_by { |member| member["order"] }
+members_en = rows.map { |row| member_from(row, :en) }.compact.sort_by { |member| member["order"] }
 
 abort_with("No members found in Google Sheets CSV.") if members_ja.empty? && members_en.empty?
 

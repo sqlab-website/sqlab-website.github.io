@@ -2,18 +2,60 @@ const GITHUB_OWNER = "sqlab-website";
 const GITHUB_REPO = "sqlab-website.github.io";
 const GITHUB_WORKFLOW = "pages.yml";
 const GITHUB_REF = "main";
+const DISPATCH_DELAY_MINUTES = 2;
 const MIN_INTERVAL_MINUTES = 5;
+const DELAYED_DISPATCH_HANDLER = "runScheduledWebsiteWorkflowDispatch";
 
 function onSheetEdit(e) {
-  dispatchWebsiteWorkflow_("sheet edit");
+  scheduleWebsiteWorkflowDispatch_("sheet edit");
 }
 
 function onSheetChange(e) {
-  dispatchWebsiteWorkflow_("sheet change");
+  scheduleWebsiteWorkflowDispatch_("sheet change");
 }
 
 function testWebsiteWorkflowDispatch() {
   dispatchWebsiteWorkflow_("manual test", true);
+}
+
+function runScheduledWebsiteWorkflowDispatch() {
+  const properties = PropertiesService.getScriptProperties();
+  const reason = properties.getProperty("PENDING_DISPATCH_REASON") || "scheduled sheet update";
+
+  deleteDelayedDispatchTriggers_();
+  properties.deleteProperty("PENDING_DISPATCH_REASON");
+  properties.deleteProperty("PENDING_DISPATCH_MS");
+
+  dispatchWebsiteWorkflow_(reason);
+}
+
+function scheduleWebsiteWorkflowDispatch_(reason) {
+  const lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+
+  try {
+    const properties = PropertiesService.getScriptProperties();
+    properties.setProperty("PENDING_DISPATCH_REASON", reason);
+    properties.setProperty("PENDING_DISPATCH_MS", String(Date.now()));
+
+    deleteDelayedDispatchTriggers_();
+    ScriptApp.newTrigger(DELAYED_DISPATCH_HANDLER)
+      .timeBased()
+      .after(DISPATCH_DELAY_MINUTES * 60 * 1000)
+      .create();
+
+    console.log(`Scheduled website workflow dispatch in ${DISPATCH_DELAY_MINUTES} minutes: ${reason}`);
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function deleteDelayedDispatchTriggers_() {
+  ScriptApp.getProjectTriggers().forEach((trigger) => {
+    if (trigger.getHandlerFunction() === DELAYED_DISPATCH_HANDLER) {
+      ScriptApp.deleteTrigger(trigger);
+    }
+  });
 }
 
 function dispatchWebsiteWorkflow_(reason, force) {

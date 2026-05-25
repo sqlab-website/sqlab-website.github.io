@@ -31,6 +31,12 @@
   role: 事務補助員
   email: mmurase [at] sqlab.jp
   order: 4
+- name: 小川 瑞史
+  slug: mizuhito-ogawa
+  initial: MO
+  role: 招へい教員
+  email: mizuhito [at] sqlab.jp
+  order: 5
 - name: 小口 隼矢
   slug: shunya-oguchi
   initial: SO
