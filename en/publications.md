@@ -8,7 +8,7 @@ site_title: Yuen/Nakazawa Laboratory
 <section class="page-header">
   <p class="eyebrow">Publications</p>
   <h1>Publications</h1>
-  <p>Selected papers, presentations, and awards.</p>
+  <p>Selected papers, presentations, and awards. (Under construction)</p>
 </section>
 
 <section class="section">

@@ -6,7 +6,7 @@ permalink: /publications/
 <section class="page-header">
   <p class="eyebrow">Publications</p>
   <h1>研究業績</h1>
-  <p>主要な論文、発表、受賞を掲載します。</p>
+  <p>主要な論文、発表、受賞を掲載します。(作成中)</p>
 </section>
 
 <section class="section">
