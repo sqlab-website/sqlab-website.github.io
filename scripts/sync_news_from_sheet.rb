@@ -52,6 +52,7 @@ def news_item_from(row)
   {
     "title" => title,
     "date" => date,
+    "show_until" => value(row, "show_until"),
     "slug" => slug,
     "body" => value(row, "body_ja") || value(row, "body") || "",
     "order" => (value(row, "order") || "999").to_i
@@ -68,12 +69,17 @@ def write_news(item)
   FileUtils.mkdir_p("_news")
   date_prefix = item.fetch("date")
   path = "_news/#{date_prefix}-#{item.fetch("slug")}.md"
+  front_matter = [
+    "---",
+    "layout: news",
+    "title: #{item.fetch("title").inspect}",
+    "date: #{date_prefix}"
+  ]
+  front_matter << %(show_until: #{item["show_until"].inspect}) if present?(item["show_until"])
+  front_matter << "---"
+
   File.write(path, <<~MARKDOWN)
-    ---
-    layout: news
-    title: #{item.fetch("title").inspect}
-    date: #{date_prefix}
-    ---
+    #{front_matter.join("\n")}
 
     #{GENERATED_MARKER}
 
@@ -86,7 +92,7 @@ abort_with("Set NEWS_SHEET_CSV_URL or NEWS_SHEET_ID.") unless url
 
 csv_text = URI.open(url, &:read)
 rows = CSV.parse(csv_text, headers: true)
-news_items = rows.filter_map { |row| news_item_from(row) }.sort_by { |item| [-item["date"].delete("-").to_i, item["order"]] }
+news_items = rows.map { |row| news_item_from(row) }.compact.sort_by { |item| [-item["date"].delete("-").to_i, item["order"]] }
 
 abort_with("No news found in Google Sheets CSV.") if news_items.empty?
 

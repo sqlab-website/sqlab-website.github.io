@@ -197,10 +197,10 @@ Google SheetsをCSVとして読み込み、日本語ニュースページを生�
 必要な列:
 
 ```text
-date,slug,title_ja,body_ja,order
+date,show_until,slug,title_ja,body_ja,order
 ```
 
-`date`は`YYYY-MM-DD`形式です。`slug`はURLに使われます。空欄の場合はタイトルから自動生成します。同期で生成されたニュースだけを次回同期時に作り直すため、手書きの`_news/*.md`は残ります。
+`date`は`YYYY-MM-DD`形式です。`show_until`に日付がある場合、その日付以降はニュース一覧とホームのお知らせ欄に表示しません。空欄の場合は表示し続けます。`slug`はURLに使われます。空欄の場合はタイトルから自動生成します。同期で生成されたニュースだけを次回同期時に作り直すため、手書きの`_news/*.md`は残ります。
 
 ローカル実行例:
 
