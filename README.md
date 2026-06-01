@@ -21,6 +21,44 @@ bundle exec jekyll serve
 - イベント: `_data/events.yml`
 - お知らせ: `_news/*.md`
 
+## Google Sheetsをサービスアカウントで読む
+
+Google Sheetsは、従来の「リンクを知っている全員が閲覧可」にしたCSV exportに加えて、Google Cloudのサービスアカウントでも同期できます。非公開シートを使う場合はこちらを使います。
+
+設定手順:
+
+1. Google Cloudでサービスアカウントを作成します。
+2. サービスアカウントのJSONキーを作成します。
+3. 同期したいGoogle Sheetsを、サービスアカウントの`client_email`に閲覧者として共有します。
+4. GitHub Actionsで使う場合は、リポジトリのSecretsに次のどちらかを設定します。
+
+```text
+GOOGLE_SERVICE_ACCOUNT_JSON = JSONキーの内容
+```
+
+または、改行を避けたい場合:
+
+```text
+GOOGLE_SERVICE_ACCOUNT_JSON_BASE64 = JSONキーをbase64化した文字列
+```
+
+5. 各シートのIDとgidは従来どおり設定します。例:
+
+```text
+MEMBERS_SHEET_ID = GoogleスプレッドシートID
+MEMBERS_SHEET_GID = 0
+```
+
+ローカルで実行する場合は、次のいずれかを環境変数に設定できます。
+
+```bash
+GOOGLE_SERVICE_ACCOUNT_JSON='{"type":"service_account",...}' MEMBERS_SHEET_ID=... ruby scripts/sync_members_from_sheet.rb
+GOOGLE_SERVICE_ACCOUNT_JSON_BASE64=... MEMBERS_SHEET_ID=... ruby scripts/sync_members_from_sheet.rb
+GOOGLE_APPLICATION_CREDENTIALS=/path/to/service-account.json MEMBERS_SHEET_ID=... ruby scripts/sync_members_from_sheet.rb
+```
+
+`*_SHEET_CSV_URL`を設定した場合は、そのCSV URLが優先されます。`*_SHEET_CSV_URL`がなく、サービスアカウント情報がある場合はGoogle Sheets APIで読み込みます。
+
 ## Google Sheetsからメンバーを同期
 
 Google SheetsをCSVとして読み込み、メンバー一覧と個人ページを生成できます。

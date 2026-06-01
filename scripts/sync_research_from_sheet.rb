@@ -5,6 +5,7 @@ require "csv"
 require "fileutils"
 require "open-uri"
 require "yaml"
+require_relative "google_sheets_csv"
 
 CSV_URL = ENV["RESEARCH_SHEET_CSV_URL"]
 SHEET_ID = ENV["RESEARCH_SHEET_ID"]
@@ -74,14 +75,13 @@ def write_yaml(path, items)
   File.write(path, items.to_yaml)
 end
 
-url = sheet_url
-abort_with("Set RESEARCH_SHEET_CSV_URL or RESEARCH_SHEET_ID.") unless url
+abort_with("Set RESEARCH_SHEET_CSV_URL or RESEARCH_SHEET_ID.") unless present?(CSV_URL) || present?(SHEET_ID)
 
-csv_text = URI.open(url, &:read)
+csv_text = GoogleSheetsCsv.fetch(csv_url: CSV_URL, sheet_id: SHEET_ID, gid: SHEET_GID)
 rows = CSV.parse(csv_text, headers: true)
 
-research_ja = rows.filter_map { |row| research_from(row, :ja) }.sort_by { |item| item["order"] }
-research_en = rows.filter_map { |row| research_from(row, :en) }.sort_by { |item| item["order"] }
+research_ja = rows.map { |row| research_from(row, :ja) }.compact.sort_by { |item| item["order"] }
+research_en = rows.map { |row| research_from(row, :en) }.compact.sort_by { |item| item["order"] }
 
 abort_with("No research topics found in Google Sheets CSV.") if research_ja.empty? && research_en.empty?
 

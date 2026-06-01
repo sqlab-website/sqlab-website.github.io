@@ -5,6 +5,7 @@ require "csv"
 require "fileutils"
 require "open-uri"
 require "yaml"
+require_relative "google_sheets_csv"
 
 CSV_URL = ENV["EVENTS_SHEET_CSV_URL"]
 SHEET_ID = ENV["EVENTS_SHEET_ID"]
@@ -56,14 +57,13 @@ def write_yaml(path, items)
   File.write(path, items.to_yaml)
 end
 
-url = sheet_url
-abort_with("Set EVENTS_SHEET_CSV_URL or EVENTS_SHEET_ID.") unless url
+abort_with("Set EVENTS_SHEET_CSV_URL or EVENTS_SHEET_ID.") unless present?(CSV_URL) || present?(SHEET_ID)
 
-csv_text = URI.open(url, &:read)
+csv_text = GoogleSheetsCsv.fetch(csv_url: CSV_URL, sheet_id: SHEET_ID, gid: SHEET_GID)
 rows = CSV.parse(csv_text, headers: true)
 
-events_ja = rows.filter_map { |row| event_from(row, :ja) }.sort_by { |event| [event["order"], event["date"].to_s] }
-events_en = rows.filter_map { |row| event_from(row, :en) }.sort_by { |event| [event["order"], event["date"].to_s] }
+events_ja = rows.map { |row| event_from(row, :ja) }.compact.sort_by { |event| [event["order"], event["date"].to_s] }
+events_en = rows.map { |row| event_from(row, :en) }.compact.sort_by { |event| [event["order"], event["date"].to_s] }
 
 abort_with("No events found in Google Sheets CSV.") if events_ja.empty? && events_en.empty?
 

@@ -4,6 +4,7 @@
 require "csv"
 require "fileutils"
 require "open-uri"
+require_relative "google_sheets_csv"
 
 CSV_URL = ENV["NEWS_SHEET_CSV_URL"]
 SHEET_ID = ENV["NEWS_SHEET_ID"]
@@ -87,10 +88,9 @@ def write_news(item)
   MARKDOWN
 end
 
-url = sheet_url
-abort_with("Set NEWS_SHEET_CSV_URL or NEWS_SHEET_ID.") unless url
+abort_with("Set NEWS_SHEET_CSV_URL or NEWS_SHEET_ID.") unless present?(CSV_URL) || present?(SHEET_ID)
 
-csv_text = URI.open(url, &:read)
+csv_text = GoogleSheetsCsv.fetch(csv_url: CSV_URL, sheet_id: SHEET_ID, gid: SHEET_GID)
 rows = CSV.parse(csv_text, headers: true)
 news_items = rows.map { |row| news_item_from(row) }.compact.sort_by { |item| [-item["date"].delete("-").to_i, item["order"]] }
 

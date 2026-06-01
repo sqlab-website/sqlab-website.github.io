@@ -6,6 +6,7 @@ require "digest"
 require "fileutils"
 require "open-uri"
 require "yaml"
+require_relative "google_sheets_csv"
 
 CSV_URL = ENV["MEMBERS_SHEET_CSV_URL"]
 SHEET_ID = ENV["MEMBERS_SHEET_ID"]
@@ -256,10 +257,9 @@ def write_profile(path, member, lang:)
   MARKDOWN
 end
 
-url = sheet_url
-abort_with("Set MEMBERS_SHEET_CSV_URL or MEMBERS_SHEET_ID.") unless url
+abort_with("Set MEMBERS_SHEET_CSV_URL or MEMBERS_SHEET_ID.") unless present?(CSV_URL) || present?(SHEET_ID)
 
-csv_text = URI.open(url, &:read).force_encoding("UTF-8").encode("UTF-8", invalid: :replace, undef: :replace)
+csv_text = GoogleSheetsCsv.fetch(csv_url: CSV_URL, sheet_id: SHEET_ID, gid: SHEET_GID)
 rows = CSV.parse(csv_text, headers: true)
 
 members_ja = rows.map { |row| member_from(row, :ja) }.compact.sort_by { |member| member["order"] }
