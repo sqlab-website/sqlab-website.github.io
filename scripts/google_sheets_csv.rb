@@ -9,7 +9,7 @@ require "open-uri"
 require "uri"
 
 module GoogleSheetsCsv
-  SCOPE = "https://www.googleapis.com/auth/spreadsheets.readonly"
+  SCOPE = "https://www.googleapis.com/auth/spreadsheets.readonly https://www.googleapis.com/auth/drive.readonly"
   DEFAULT_TOKEN_URI = "https://oauth2.googleapis.com/token"
 
   module_function

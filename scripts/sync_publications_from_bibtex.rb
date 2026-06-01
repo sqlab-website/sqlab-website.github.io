@@ -7,6 +7,7 @@ require "json"
 require "open-uri"
 require "uri"
 require "yaml"
+require_relative "google_sheets_csv"
 
 BIB_DIR = ENV["PUBLICATIONS_BIB_DIR"].to_s.empty? ? "_bibliography" : ENV["PUBLICATIONS_BIB_DIR"]
 BIB_FILES = ENV["PUBLICATIONS_BIB_FILES"].to_s
@@ -49,7 +50,8 @@ def google_drive_folder_bib_urls
   folder_id ||= google_drive_folder_id(BIB_FOLDER_URL)
   return [] unless present?(folder_id)
 
-  abort_with("PUBLICATIONS_BIB_API_KEY is required when using PUBLICATIONS_BIB_FOLDER_ID or PUBLICATIONS_BIB_FOLDER_URL.") unless present?(BIB_API_KEY)
+  token = GoogleSheetsCsv.access_token if GoogleSheetsCsv.service_account_credentials
+  abort_with("PUBLICATIONS_BIB_API_KEY or GOOGLE_SERVICE_ACCOUNT_JSON is required when using PUBLICATIONS_BIB_FOLDER_ID or PUBLICATIONS_BIB_FOLDER_URL.") unless present?(BIB_API_KEY) || present?(token)
 
   urls = []
   page_token = nil
@@ -63,10 +65,15 @@ def google_drive_folder_bib_urls
       "includeItemsFromAllDrives" => "true",
       "supportsAllDrives" => "true"
     }
+    params.delete("key") unless present?(BIB_API_KEY)
     params["pageToken"] = page_token if present?(page_token)
 
-    endpoint = "https://www.googleapis.com/drive/v3/files?#{URI.encode_www_form(params)}"
-    response = JSON.parse(URI.open(endpoint, &:read))
+    uri = URI("https://www.googleapis.com/drive/v3/files?#{URI.encode_www_form(params)}")
+    response = if present?(token)
+                 google_drive_get_json(uri, token)
+               else
+                 JSON.parse(URI.open(uri, &:read))
+               end
 
     response.fetch("files", []).each do |file|
       next unless file["name"].to_s.downcase.end_with?(".bib")
@@ -81,9 +88,27 @@ def google_drive_folder_bib_urls
   urls.sort_by(&:url)
 end
 
+def google_drive_get_json(uri, token)
+  request = Net::HTTP::Get.new(uri)
+  request["Authorization"] = "Bearer #{token}"
+  response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) { |http| http.request(request) }
+  abort_with("Google Drive API request failed: #{response.code} #{response.body}") unless response.is_a?(Net::HTTPSuccess)
+
+  JSON.parse(response.body)
+end
+
 def bib_sources
   urls = BIB_URLS.split(",").map(&:strip).select { |url| present?(url) }.map { |url| BibUrl.new(url) }
   google_drive_folder_bib_urls + urls + bib_files
+end
+
+def google_drive_file_id(url)
+  return nil unless present?(url)
+
+  return Regexp.last_match(1) if url =~ %r{drive\.google\.com/file/d/([^/]+)}
+  return Regexp.last_match(1) if url =~ /[?&]id=([^&]+)/
+
+  nil
 end
 
 def google_drive_download_url(url)
@@ -104,7 +129,20 @@ end
 
 def read_bib_source(source)
   if source.is_a?(BibUrl)
-    text = URI.open(google_drive_download_url(source.url), &:read).force_encoding("UTF-8").encode("UTF-8", invalid: :replace, undef: :replace)
+    file_id = google_drive_file_id(source.url)
+    text = if present?(file_id) && GoogleSheetsCsv.service_account_credentials
+             token = GoogleSheetsCsv.access_token
+             uri = URI("https://www.googleapis.com/drive/v3/files/#{file_id}?alt=media&supportsAllDrives=true")
+             request = Net::HTTP::Get.new(uri)
+             request["Authorization"] = "Bearer #{token}"
+             response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) { |http| http.request(request) }
+             abort_with("Could not download BibTeX from #{source.url}: #{response.code} #{response.body}") unless response.is_a?(Net::HTTPSuccess)
+
+             response.body
+           else
+             URI.open(google_drive_download_url(source.url), &:read)
+           end
+    text = text.force_encoding("UTF-8").encode("UTF-8", invalid: :replace, undef: :replace)
     if text.lstrip.start_with?("<!doctype html", "<html")
       abort_with("Could not download BibTeX from #{source.url}. Make the Google Drive file or folder readable by anyone with the link.")
     end

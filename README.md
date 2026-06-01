@@ -186,14 +186,24 @@ Google Driveのフォルダ内にあるBibTeXファイルをまとめて読む�
 PUBLICATIONS_BIB_FOLDER_URL="https://drive.google.com/drive/folders/..." PUBLICATIONS_BIB_API_KEY="Google API key" ruby scripts/sync_publications_from_bibtex.rb
 ```
 
+サービスアカウントで読む場合:
+
+```bash
+GOOGLE_APPLICATION_CREDENTIALS=/path/to/service-account.json PUBLICATIONS_BIB_FOLDER_URL="https://drive.google.com/drive/folders/..." ruby scripts/sync_publications_from_bibtex.rb
+```
+
 共有ドライブの`SQlabWWW/publications`に`.bib`ファイルを置く場合は、`publications`フォルダのURLを`PUBLICATIONS_BIB_FOLDER_URL`に設定します。フォルダURLの代わりにフォルダIDだけを`PUBLICATIONS_BIB_FOLDER_ID`に設定しても構いません。フォルダ内の`.bib`ファイルだけを読み込み、複数ファイルを統合します。
 
 GitHub ActionsでGoogle Drive上のBibTeXを使う場合は、リポジトリのSecretsに次の値を設定します。
 
 - `PUBLICATIONS_BIB_FOLDER_URL`: `SQlabWWW/publications`フォルダのURL
+- `GOOGLE_SERVICE_ACCOUNT_JSON_BASE64`: サービスアカウントJSONをbase64化した文字列
+
+または、公開フォルダをAPI keyで読む場合:
+
 - `PUBLICATIONS_BIB_API_KEY`: Google Drive APIを有効にしたGoogle API key
 
-個別ファイルURLを使う場合は、`PUBLICATIONS_BIB_URLS`に複数ファイルをカンマ区切りで指定します。BibTeXを使う場合、業績のGoogle Sheets同期よりBibTeX同期が優先されます。Drive上の`.bib`ファイル、または`.bib`を置いたフォルダは「リンクを知っている全員が閲覧可」にしておきます。
+個別ファイルURLを使う場合は、`PUBLICATIONS_BIB_URLS`に複数ファイルをカンマ区切りで指定します。GitHub Actionsでは業績のGoogle Sheets同期は実行せず、BibTeX同期で公開サイトの業績一覧を生成します。サービスアカウントを使う場合は、Drive上の`.bib`ファイル、または`.bib`を置いたフォルダをサービスアカウントの`client_email`に閲覧者として共有します。
 
 対応するBibTeX entry:
 
