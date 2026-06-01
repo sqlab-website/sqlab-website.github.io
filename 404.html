@@ -1,0 +1,31 @@
+---
+layout: null
+---
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+      if (window.location.pathname.indexOf("{{ '/en/news/' | relative_url }}") === 0) {
+        window.location.replace("{{ '/en/' | relative_url }}");
+      }
+    </script>
+    <title>Page not found | {{ site.title }}</title>
+    <link rel="stylesheet" href="{{ '/assets/css/styles.css' | relative_url }}?v={{ site.time | date: '%s' }}">
+  </head>
+  <body>
+    {% include header.html %}
+    <main>
+      <section class="page-header">
+        <p class="eyebrow">404</p>
+        <h1>ページが見つかりません</h1>
+        <p>お探しのページは移動または削除された可能性があります。</p>
+      </section>
+      <section class="section">
+        <a class="button" href="{{ '/' | relative_url }}">ホームへ戻る</a>
+      </section>
+    </main>
+    {% include footer.html %}
+  </body>
+</html>

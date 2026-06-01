@@ -10,6 +10,7 @@ CSV_URL = ENV["NEWS_SHEET_CSV_URL"]
 SHEET_ID = ENV["NEWS_SHEET_ID"]
 SHEET_GID = ENV["NEWS_SHEET_GID"].to_s.empty? ? "0" : ENV["NEWS_SHEET_GID"]
 GENERATED_MARKER = "<!-- generated-from-google-sheets -->"
+GENERATED_REDIRECT_MARKER = "<!-- generated-news-redirect -->"
 
 def abort_with(message)
   warn(message)
@@ -48,6 +49,7 @@ def news_item_from(row)
   return nil unless present?(title) && present?(date)
 
   slug = value(row, "slug")
+  slug = slugify(slug) if present?(slug)
   slug = slugify(value(row, "title_en") || title) unless present?(slug)
 
   {
@@ -63,6 +65,12 @@ end
 def delete_generated_news
   Dir.glob("_news/*.md").each do |path|
     File.delete(path) if File.read(path).include?(GENERATED_MARKER)
+  end
+end
+
+def delete_generated_english_news_redirects
+  Dir.glob("en/news/**/index.html").each do |path|
+    File.delete(path) if File.read(path).include?(GENERATED_REDIRECT_MARKER)
   end
 end
 
@@ -88,6 +96,30 @@ def write_news(item)
   MARKDOWN
 end
 
+def write_english_news_redirect(item)
+  date_prefix = item.fetch("date")
+  path = File.join("en", "news", "#{date_prefix}-#{item.fetch("slug")}", "index.html")
+  FileUtils.mkdir_p(File.dirname(path))
+
+  File.write(path, <<~HTML)
+    <!doctype html>
+    <html lang="en">
+      <head>
+        <meta charset="utf-8">
+        <meta http-equiv="refresh" content="0; url=/en/">
+        <script>
+          window.location.replace("/en/");
+        </script>
+        <title>Redirecting...</title>
+      </head>
+      <body>
+        #{GENERATED_REDIRECT_MARKER}
+        <p><a href="/en/">Redirecting to Home</a></p>
+      </body>
+    </html>
+  HTML
+end
+
 abort_with("Set NEWS_SHEET_CSV_URL or NEWS_SHEET_ID.") unless present?(CSV_URL) || present?(SHEET_ID)
 
 csv_text = GoogleSheetsCsv.fetch(csv_url: CSV_URL, sheet_id: SHEET_ID, gid: SHEET_GID)
@@ -97,6 +129,10 @@ news_items = rows.map { |row| news_item_from(row) }.compact.sort_by { |item| [-i
 abort_with("No news found in Google Sheets CSV.") if news_items.empty?
 
 delete_generated_news
-news_items.each { |item| write_news(item) }
+delete_generated_english_news_redirects
+news_items.each do |item|
+  write_news(item)
+  write_english_news_redirect(item)
+end
 
 puts "Synced #{news_items.size} Japanese news posts."
