@@ -11,7 +11,7 @@ require_relative "google_sheets_csv"
 
 BIB_DIR = ENV["PUBLICATIONS_BIB_DIR"].to_s.empty? ? "_bibliography" : ENV["PUBLICATIONS_BIB_DIR"]
 BIB_FILES = ENV["PUBLICATIONS_BIB_FILES"].to_s
-BibUrl = Struct.new(:url)
+BibUrl = Struct.new(:url, :label)
 BIB_URLS = ENV["PUBLICATIONS_BIB_URLS"].to_s
 BIB_FOLDER_ID = ENV["PUBLICATIONS_BIB_FOLDER_ID"].to_s
 BIB_FOLDER_URL = ENV["PUBLICATIONS_BIB_FOLDER_URL"].to_s
@@ -63,7 +63,8 @@ def google_drive_folder_bib_urls
       "fields" => "nextPageToken,files(id,name,mimeType)",
       "pageSize" => "1000",
       "includeItemsFromAllDrives" => "true",
-      "supportsAllDrives" => "true"
+      "supportsAllDrives" => "true",
+      "corpora" => "allDrives"
     }
     params.delete("key") unless present?(BIB_API_KEY)
     params["pageToken"] = page_token if present?(page_token)
@@ -78,14 +79,14 @@ def google_drive_folder_bib_urls
     response.fetch("files", []).each do |file|
       next unless file["name"].to_s.downcase.end_with?(".bib")
 
-      urls << BibUrl.new("https://drive.google.com/uc?export=download&id=#{file["id"]}")
+      urls << BibUrl.new("https://drive.google.com/uc?export=download&id=#{file["id"]}", file["name"])
     end
 
     page_token = response["nextPageToken"]
     break unless present?(page_token)
   end
 
-  urls.sort_by(&:url)
+  urls.sort_by { |source| source.label.to_s }
 end
 
 def google_drive_get_json(uri, token)
@@ -98,7 +99,7 @@ def google_drive_get_json(uri, token)
 end
 
 def bib_sources
-  urls = BIB_URLS.split(",").map(&:strip).select { |url| present?(url) }.map { |url| BibUrl.new(url) }
+  urls = BIB_URLS.split(",").map(&:strip).select { |url| present?(url) }.map { |url| BibUrl.new(url, url) }
   google_drive_folder_bib_urls + urls + bib_files
 end
 
@@ -124,7 +125,7 @@ def google_drive_download_url(url)
 end
 
 def source_label(source)
-  source.is_a?(BibUrl) ? source.url : source
+  source.is_a?(BibUrl) ? source.label || source.url : source
 end
 
 def read_bib_source(source)
@@ -488,6 +489,9 @@ end
 
 sources = bib_sources
 abort_with("No BibTeX sources found. Set PUBLICATIONS_BIB_FOLDER_URL, PUBLICATIONS_BIB_FOLDER_ID, PUBLICATIONS_BIB_URLS, PUBLICATIONS_BIB_DIR, or PUBLICATIONS_BIB_FILES.") if sources.empty?
+
+puts "BibTeX sources:"
+sources.each { |source| puts "- #{source_label(source)}" }
 
 seen = {}
 publications = []
