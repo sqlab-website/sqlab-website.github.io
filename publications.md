@@ -40,6 +40,8 @@ permalink: /publications/
           雑誌論文
         {% elsif pub.entry_type == 'award' %}
           受賞
+        {% elsif pub.entry_type == 'poster' %}
+          ポスター
         {% endif %}
       {% endcapture %}
       {% capture publication_type_key %}
@@ -51,6 +53,8 @@ permalink: /publications/
           journal
         {% elsif pub.entry_type == 'award' %}
           award
+        {% elsif pub.entry_type == 'poster' %}
+          poster
         {% endif %}
       {% endcapture %}
       <li{% if pub.id %} id="{{ pub.id }}"{% endif %} data-publication-item data-publication-type="{{ publication_type_key | strip }}" data-search-text="{{ pub.year | append: ' ' | append: publication_type | append: ' ' | append: pub.title | append: ' ' | append: pub.authors | append: ' ' | append: pub.publisher | strip_html | normalize_whitespace | escape }}">

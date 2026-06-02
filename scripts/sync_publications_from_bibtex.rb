@@ -407,6 +407,43 @@ def misc_award_from(key, fields, order, bibtex_entry)
   }.delete_if { |_key, value| value == "" }
 end
 
+def poster_misc?(fields)
+  note = fields["note"].to_s.strip.downcase
+  note == "poster" || fields["note"].to_s.strip == "ポスター"
+end
+
+def poster_misc_english?(fields)
+  fields["note"].to_s.strip.downcase == "poster"
+end
+
+def misc_poster_from(key, fields, order, bibtex_entry)
+  return nil unless poster_misc?(fields)
+
+  title = fields["title"]
+  return nil unless present?(title)
+
+  {
+    "id" => key,
+    "entry_type" => "poster",
+    "year" => year_from(fields),
+    "month_order" => month_order_from(fields),
+    "title" => title,
+    "authors" => authors_from(fields),
+    "howpublished" => fields["howpublished"] || "",
+    "note" => fields["note"] || "",
+    "show_on_english" => poster_misc_english?(fields),
+    "publisher" => join_present([
+      fields["howpublished"]
+    ]),
+    "doi" => fields["doi"] || "",
+    "url" => fields["url"] || "",
+    "bibtex_url" => bibtex_page_path(key),
+    "bibtex_source_url" => fields["biburl"] || "",
+    "bibtex_entry" => bibtex_entry,
+    "order" => order
+  }.delete_if { |_key, value| value == "" }
+end
+
 def publication_from(entry, order)
   case entry[:type]
   when "article"
@@ -416,7 +453,8 @@ def publication_from(entry, order)
   when "techreport"
     techreport_from(entry[:key], entry[:fields], order, entry[:raw])
   when "misc"
-    misc_award_from(entry[:key], entry[:fields], order, entry[:raw])
+    misc_award_from(entry[:key], entry[:fields], order, entry[:raw]) ||
+      misc_poster_from(entry[:key], entry[:fields], order, entry[:raw])
   end
 end
 
@@ -434,6 +472,7 @@ end
 
 def show_on_english_publications?(publication)
   return false if publication["entry_type"] == "award"
+  return publication["show_on_english"] if publication["entry_type"] == "poster"
 
   !(publication["entry_type"] == "techreport" && japanese_text?(publication["title"]))
 end
@@ -481,9 +520,11 @@ def write_bibtex_pages(publications)
     ja_path = File.join("publications", "bibtex", slug, "index.md")
     en_path = File.join("en", "publications", "bibtex", slug, "index.md")
     FileUtils.mkdir_p(File.dirname(ja_path))
-    FileUtils.mkdir_p(File.dirname(en_path))
     File.write(ja_path, bibtex_page(publication, :ja))
-    File.write(en_path, bibtex_page(publication, :en))
+    if show_on_english_publications?(publication)
+      FileUtils.mkdir_p(File.dirname(en_path))
+      File.write(en_path, bibtex_page(publication, :en))
+    end
   end
 end
 

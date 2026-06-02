@@ -40,6 +40,8 @@ site_title: Yuen/Nakazawa Laboratory
           proceedings
         {% elsif pub.entry_type == 'article' or pub.entry_type == 'journal' %}
           journal
+        {% elsif pub.entry_type == 'poster' %}
+          Poster
         {% endif %}
       {% endcapture %}
       {% assign publication_type_key = publication_type | strip %}
