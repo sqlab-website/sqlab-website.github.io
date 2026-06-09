@@ -606,6 +606,23 @@ h3 {
   margin: 0;
 }
 
+.publication-download {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  margin-top: 18px;
+}
+
+.publication-search__download {
+  cursor: pointer;
+}
+
+.publication-search__download:disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+}
+
 .publication-list__meta {
   align-items: center;
   display: flex;

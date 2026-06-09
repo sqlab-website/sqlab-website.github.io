@@ -75,6 +75,10 @@ site_title: Yuen/Nakazawa Laboratory
       </li>
     {% endfor %}
   </ol>
+  <div class="publication-download">
+    <button class="button publication-search__download" type="button" data-publication-bibtex-download>Download visible BibTeX</button>
+    <p class="publication-search__status" aria-live="polite" data-publication-bibtex-status></p>
+  </div>
 </section>
 
 <script>
@@ -83,9 +87,11 @@ site_title: Yuen/Nakazawa Laboratory
     const typeFilter = document.querySelector("[data-publication-type-filter]");
     const input = document.querySelector("[data-publication-search-input]");
     const status = document.querySelector("[data-publication-search-status]");
+    const downloadButton = document.querySelector("[data-publication-bibtex-download]");
+    const downloadStatus = document.querySelector("[data-publication-bibtex-status]");
     const items = Array.from(document.querySelectorAll("[data-publication-item]"));
 
-    if (!search || !typeFilter || !input || !status || items.length === 0) {
+    if (!search || !typeFilter || !input || !status || !downloadButton || !downloadStatus || items.length === 0) {
       return;
     }
 
@@ -113,8 +119,62 @@ site_title: Yuen/Nakazawa Laboratory
       status.textContent = terms.length === 0
         ? `Showing ${visible} of ${total} publications.`
         : `${visible} of ${total} publications found.`;
+
+      const visibleBibtexCount = items.filter((item) => !item.hidden && item.querySelector(".publication-list__bibtex")).length;
+      downloadButton.disabled = visibleBibtexCount === 0;
+      downloadStatus.textContent = visibleBibtexCount === 0 ? "No BibTeX is available for the visible items." : "";
     };
 
+    const bibtexEntryFrom = async (url) => {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`${response.status} ${url}`);
+      }
+      const html = await response.text();
+      const doc = new DOMParser().parseFromString(html, "text/html");
+      return doc.querySelector(".bibtex-entry code")?.textContent.trim() || "";
+    };
+
+    const downloadVisibleBibtex = async () => {
+      const links = items
+        .filter((item) => !item.hidden)
+        .map((item) => item.querySelector(".publication-list__bibtex"))
+        .filter(Boolean);
+
+      if (links.length === 0) {
+        downloadStatus.textContent = "No BibTeX is available for the visible items.";
+        return;
+      }
+
+      downloadButton.disabled = true;
+      downloadStatus.textContent = `Preparing ${links.length} BibTeX entries.`;
+
+      try {
+        const entries = (await Promise.all(links.map((link) => bibtexEntryFrom(link.href)))).filter(Boolean);
+        if (entries.length === 0) {
+          downloadStatus.textContent = "No BibTeX entries could be downloaded.";
+          return;
+        }
+
+        const blob = new Blob([`${entries.join("\n\n")}\n`], { type: "application/x-bibtex;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const anchor = document.createElement("a");
+        anchor.href = url;
+        anchor.download = "sqlab-publications.bib";
+        document.body.append(anchor);
+        anchor.click();
+        anchor.remove();
+        URL.revokeObjectURL(url);
+        downloadStatus.textContent = `Downloaded ${entries.length} BibTeX entries.`;
+      } catch (error) {
+        downloadStatus.textContent = "Failed to prepare BibTeX entries.";
+        console.error(error);
+      } finally {
+        downloadButton.disabled = false;
+      }
+    };
+
+    downloadButton.addEventListener("click", downloadVisibleBibtex);
     typeFilter.addEventListener("change", update);
     input.addEventListener("input", update);
     update();
