@@ -111,6 +111,35 @@ permalink: /publications/
     const normalize = (value) => value.toLowerCase().replace(/\s+/g, " ").trim();
     const total = items.length;
 
+    const applyUrlFilters = () => {
+      const params = new URLSearchParams(window.location.search);
+      input.value = params.get("q") || "";
+
+      const requestedType = params.get("type");
+      if (requestedType && Array.from(typeFilter.options).some((option) => option.value === requestedType)) {
+        typeFilter.value = requestedType;
+      }
+    };
+
+    const updateUrl = () => {
+      const url = new URL(window.location.href);
+      const query = input.value.trim();
+
+      if (query) {
+        url.searchParams.set("q", query);
+      } else {
+        url.searchParams.delete("q");
+      }
+
+      if (typeFilter.value === "all") {
+        url.searchParams.delete("type");
+      } else {
+        url.searchParams.set("type", typeFilter.value);
+      }
+
+      window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
+    };
+
     const update = () => {
       const selectedType = typeFilter.value;
       const terms = normalize(input.value).split(" ").filter(Boolean);
@@ -134,6 +163,7 @@ permalink: /publications/
       const visibleBibtexCount = items.filter((item) => !item.hidden && item.querySelector(".publication-list__bibtex")).length;
       downloadButton.disabled = visibleBibtexCount === 0;
       downloadStatus.textContent = visibleBibtexCount === 0 ? "表示中の項目にBibTeXはありません。" : "";
+      updateUrl();
     };
 
     const bibtexEntryFrom = async (url) => {
@@ -188,6 +218,7 @@ permalink: /publications/
     downloadButton.addEventListener("click", downloadVisibleBibtex);
     typeFilter.addEventListener("change", update);
     input.addEventListener("input", update);
+    applyUrlFilters();
     update();
   })();
 </script>
