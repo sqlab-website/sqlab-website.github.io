@@ -5,11 +5,28 @@ GitHub Pagesで公開できるJekyll製の研究室サイトです。
 ## ローカル確認
 
 ```bash
+bundle config set --local path vendor/bundle
 bundle install
+bundle exec jekyll build --strict_front_matter
 bundle exec jekyll serve
 ```
 
 表示先は通常 `http://127.0.0.1:4000` です。
+
+Ruby 3.3（GitHub Actionsと同じバージョン）とBundlerを使用します。
+
+## 基本ページ
+
+| ページ | 日本語 | 英語 |
+| --- | --- | --- |
+| Home | `index.md` | `en/index.md` |
+| Members | `members.md` | `en/members.md` |
+| Research | `research.md` | `en/research.md` |
+| Publications | `publications.md` | `en/publications.md` |
+| Access | `access.md` | `en/access.md` |
+
+アクセス情報は `_includes/access-ja.html` と `_includes/access-en.html` で編集します。既存の問い合わせページにも同じ情報が表示されます。
+共通ナビゲーションは `_includes/header.html`、レイアウトは `_layouts/default.html`、CSSは `assets/css/styles.css` です。
 
 ## 編集箇所
 

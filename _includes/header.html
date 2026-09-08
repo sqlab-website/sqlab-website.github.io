@@ -1,12 +1,13 @@
 <header class="site-header">
-  {% assign is_en = page.lang == 'en' %}
+  {% assign is_en = false %}
+  {% if page.lang == 'en' %}{% assign is_en = true %}{% endif %}
   {% if is_en %}
     {% assign alternate_url = page.url | remove_first: '/en' %}
     {% if alternate_url == '' %}
       {% assign alternate_url = '/' %}
     {% endif %}
   {% else %}
-    {% if page.url == '/' %}
+    {% if page.url == '/' or page.url == '/404.html' %}
       {% assign alternate_url = '/en/' %}
     {% else %}
       {% assign alternate_url = page.url | prepend: '/en' %}
@@ -22,6 +23,7 @@
       <a href="{{ '/en/research/' | relative_url }}">Research</a>
       <a href="{{ '/en/members/' | relative_url }}">Members</a>
       <a href="{{ '/en/publications/' | relative_url }}">Publications</a>
+      <a href="{{ '/en/access/' | relative_url }}">Access</a>
       <a href="{{ '/en/events/' | relative_url }}">Events</a>
       <a href="{{ '/en/contact/' | relative_url }}">Contact</a>
       <a class="lang-link" href="{{ alternate_url | relative_url }}">日本語</a>
@@ -30,6 +32,7 @@
       <a href="{{ '/research/' | relative_url }}">研究</a>
       <a href="{{ '/members/' | relative_url }}">メンバー</a>
       <a href="{{ '/publications/' | relative_url }}">業績</a>
+      <a href="{{ '/access/' | relative_url }}">アクセス</a>
       <a href="{{ '/news/' | relative_url }}">ニュース</a>
       <a href="{{ '/events/' | relative_url }}">イベント</a>
       <a href="{{ '/contact/' | relative_url }}">問い合わせ</a>
